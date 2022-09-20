@@ -10,7 +10,6 @@ namespace semantica
             try
             {
                 Lenguaje a = new Lenguaje();
-
                 a.Programa();
                 /* while(!a.FinArchivo())
                  {

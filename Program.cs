@@ -1,4 +1,7 @@
-﻿using System;
+﻿/*
+    Melendez Chavez Ivan
+*/
+using System;
 using System.IO;
 
 namespace semantica
@@ -12,9 +15,9 @@ namespace semantica
                 Lenguaje a = new Lenguaje();
                 a.Programa();
                 /* while(!a.FinArchivo())
-                 {
-                     a.NextToken();
-                 }*/
+                {
+                    a.NextToken();
+                }*/
                 a.cerrar();
             }
             catch (Exception e)

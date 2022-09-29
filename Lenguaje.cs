@@ -38,6 +38,18 @@ namespace semantica
         {
 
         }
+        public bool esNumero(string cadena)
+        {
+            try
+            {
+                float.Parse(cadena);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         private string limpiarPrints(string sucio)
         {
             string cleaned = sucio.TrimStart('"');
@@ -556,9 +568,15 @@ namespace semantica
                 {
                     string val = "" + Console.ReadLine();
                     //Requerimiento 5
-                    float valorFloat = float.Parse(val);
-                    //Console.Write(valorFloat);
-                    modVariable(nombreVariable, valorFloat);
+                    //validar que sea un numero
+                    if (esNumero(val))
+                    {
+                        modVariable(nombreVariable, float.Parse(val));
+                    }
+                    else
+                    {
+                        throw new Error("Error de syntaxis: se esperaba un numero en la variable <" + nombreVariable + "> en linea  " + linea, log);
+                    }
                 }
                 match(")");
                 match(";");
@@ -688,10 +706,12 @@ namespace semantica
                     switch (casteo)
                     {
                         case Variable.TipoDato.Char:
-                            stack.Push((valor%256);
+                            stack.Push(valor%256);
+                            dominante = Variable.TipoDato.Char;
                             break;
                         case Variable.TipoDato.Int:
                             stack.Push(valor%65536);
+                            dominante = Variable.TipoDato.Int;
                             break;
                         case Variable.TipoDato.Float:
                             stack.Push(valor);

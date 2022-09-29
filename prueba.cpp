@@ -11,6 +11,7 @@ int d;
 // Este programa calcula el volumen de un cilindro.
 void main()
 {
+    x = (float)(1);
     if(3+5>10)
     {
         if(1==1)

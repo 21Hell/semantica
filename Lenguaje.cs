@@ -13,6 +13,13 @@ using System.Collections.Generic;
 //                  private float convert(float valor,string tipoDato)
 //                  deberan usar el residuo de la division %255, %65535
 
+//Requerimiento 4.- Evaluar nuevamente la condicion del if-else, while, for, do while
+//                  con respecto al parametro que recibe      
+
+//Requerimiento 5.- Levantar un excepcion cuando la captura no sea un numero
+//
+
+//Requerimiento 6.- Ejecutar el For(); con el parametro que recibe
 
 namespace semantica
 {
@@ -52,8 +59,6 @@ namespace semantica
                 log.WriteLine(v.getNombre() + " " + v.getTipo() + " " + v.getValor());
             }
         }
-
-
         private bool existeVariable(string nombre)
         {
             foreach (Variable v in variables)
@@ -151,6 +156,8 @@ namespace semantica
             }
         }
 
+
+
         //Lista_identificadores -> identificador (,Lista_identificadores)?
         private void Lista_identificadores(Variable.TipoDato tipo)
         {
@@ -172,6 +179,16 @@ namespace semantica
                 Lista_identificadores(tipo);
             }
         }
+        //Main      -> void main() Bloque de instrucciones
+        private void Main()
+        {
+            match("void");
+            match("main");
+            match("(");
+            match(")");
+            BloqueInstrucciones(true);
+        }
+
         //Bloque de instrucciones -> {ListaIntrucciones?}
         private void BloqueInstrucciones(bool evaluacion)
         {
@@ -303,11 +320,12 @@ namespace semantica
         {
             match("while");
             match("(");
-            Condicion();
+            bool validarWhile = Condicion();
+            //Requerimiento 4 
             match(")");
             if (getContenido() == "{")
             {
-                BloqueInstrucciones(evaluacion);
+                BloqueInstrucciones(validarWhile);
             }
             else
             {
@@ -329,7 +347,8 @@ namespace semantica
             }
             match("while");
             match("(");
-            Condicion();
+            //Requerimiento 4
+            bool validarDo = Condicion();
             match(")");
             match(";");
         }
@@ -339,20 +358,28 @@ namespace semantica
             match("for");
             match("(");
             Asignacion(evaluacion);
-            Condicion();
-            match(";");
-            Incremento(evaluacion);
-            match(")");
-            if (getContenido() == "{")
-            {
-                BloqueInstrucciones(evaluacion);
-            }
-            else
-            {
-                Instruccion(evaluacion);
-            }
+            //Requerimiento 4
+            //Requerimiento 6:
+            // a) Nescesito Guardar la posicion de lectura en el archivo
+            bool validarFor = Condicion();
+            // b) Metemos un ciclo while despues de validar el For
+            // while ()
+            // {
+                match(";");
+                Incremento(evaluacion);
+                match(")");
+                if (getContenido() == "{")
+                {
+                    BloqueInstrucciones(evaluacion);
+                }
+                else
+                {
+                    Instruccion(evaluacion);
+                }
+                // c) Regresar a la posicion de lectura del archivo
+                // d) Sacar otro token
+            // }
         }
-
         //Incremento -> Identificador ++ | --
         private void Incremento(bool evaluacion)
         {
@@ -459,6 +486,7 @@ namespace semantica
         {
             match("if");
             match("(");
+            //Requerimiento 4
             bool validarIf = Condicion();
             match(")");
             if (getContenido() == "{")
@@ -472,6 +500,7 @@ namespace semantica
             if (getContenido() == "else")
             {
                 match("else");
+                //Requerimiento 4
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(validarIf);
@@ -521,12 +550,16 @@ namespace semantica
             match("&");
             if (existeVariable(getContenido()))
             {
-                string NombreVariable = getContenido();
+                string nombreVariable = getContenido();
                 match(Tipos.Identificador);
-                string val = "" + Console.ReadLine();
-                float valorFloat = float.Parse(val);
-                Console.Write(valorFloat);
-                modVariable(NombreVariable, valorFloat);
+                if (evaluacion)
+                {
+                    string val = "" + Console.ReadLine();
+                    //Requerimiento 5
+                    float valorFloat = float.Parse(val);
+                    //Console.Write(valorFloat);
+                    modVariable(nombreVariable, valorFloat);
+                }
                 match(")");
                 match(";");
             }
@@ -536,15 +569,6 @@ namespace semantica
             }
 
 
-        }
-        //Main      -> void main() Bloque de instrucciones
-        private void Main()
-        {
-            match("void");
-            match("main");
-            match("(");
-            match(")");
-            BloqueInstrucciones(true);
         }
 
         //Expresion -> Termino MasTermino
@@ -623,7 +647,6 @@ namespace semantica
                 {
                     log.Write(getContenido());
                     log.Write(" ");
-                    //Requerimiento -> 1
                     stack.Push(getValor(getContenido()));
                     match(Tipos.Identificador);
                 }
@@ -661,6 +684,19 @@ namespace semantica
                 match(")");
                 if (huboCasteo)
                 {
+                    float valor = stack.Pop();
+                    switch (casteo)
+                    {
+                        case Variable.TipoDato.Char:
+                            stack.Push((valor%256);
+                            break;
+                        case Variable.TipoDato.Int:
+                            stack.Push(valor%65536);
+                            break;
+                        case Variable.TipoDato.Float:
+                            stack.Push(valor);
+                            break;
+                    }
                     //Requerimiento -> 2;
                     //Saco un elemento del stack
                     //Convierto ese valor al equivalente en casteo

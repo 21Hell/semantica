@@ -51,6 +51,22 @@ namespace semantica
                 return false;
             }
         }
+        //Requerimiento 3
+        private float convert(float valor, string tipoDato)
+        {
+            if (tipoDato == "Char")
+            {
+                return valor % 255;
+            }
+            else if (tipoDato == "Int")
+            {
+                return valor % 65535;
+            }
+            else
+            {
+                return valor;
+            }
+        }
         private string limpiarPrints(string sucio)
         {
             string cleaned = sucio.TrimStart('"');
@@ -381,7 +397,6 @@ namespace semantica
             Asignacion(evaluacion);
             
             bool validarFor = Condicion();
-
             long contador = archivo.BaseStream.Position;
             //Requerimiento 4
             if (!evaluacion)
@@ -390,16 +405,11 @@ namespace semantica
             }
             //Obtener el contador del StreamWriter
             match(";");
-            
-            
             //Requerimiento 6:
             // a) Nescesito Guardar la posicion de lectura en el archivo
 
             //Metemos un ciclo while despues de validar el For
-            do
-            {
-            // while ()
-            // {
+            //Guardar la posicion de lectura en una variable
                 Incremento(validarFor);
                 match(")");
                 if (getContenido() == "{")
@@ -410,12 +420,10 @@ namespace semantica
                 {
                     Instruccion(validarFor);
                 }
-                //retornar a la posicion de lectura del archivo
-                archivo.BaseStream.Position = contador;
-                NextToken();
-                bool validarFor = Condicion();
+            // while ()
+            // {
+                
             // }
-            }while(validarFor);
 
 
 
@@ -740,20 +748,8 @@ namespace semantica
                 if (huboCasteo)
                 {
                     float valor = stack.Pop();
-                    switch (casteo)
-                    {
-                        case Variable.TipoDato.Char:
-                            stack.Push(valor%256);
-                            dominante = Variable.TipoDato.Char;
-                            break;
-                        case Variable.TipoDato.Int:
-                            stack.Push(valor%65536);
-                            dominante = Variable.TipoDato.Int;
-                            break;
-                        case Variable.TipoDato.Float:
-                            stack.Push(valor);
-                            break;
-                    }
+                    Console.WriteLine("Casteo: " + valor + " a " + casteo);
+                    stack.Push(convert(valor, casteo.ToString())); 
                     //Requerimiento -> 2;
                     //Saco un elemento del stack
                     //Convierto ese valor al equivalente en casteo

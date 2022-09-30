@@ -38,6 +38,7 @@ namespace semantica
         {
 
         }
+        //Requerimiento 5 
         public bool esNumero(string cadena)
         {
             try
@@ -333,6 +334,10 @@ namespace semantica
             match("while");
             match("(");
             bool validarWhile = Condicion();
+            if (!evaluacion)
+            {
+                validarWhile = false;
+            }
             //Requerimiento 4 
             match(")");
             if (getContenido() == "{")
@@ -361,6 +366,10 @@ namespace semantica
             match("(");
             //Requerimiento 4
             bool validarDo = Condicion();
+            if (!evaluacion)
+            {
+                validarDo = false;
+            }
             match(")");
             match(";");
         }
@@ -370,27 +379,46 @@ namespace semantica
             match("for");
             match("(");
             Asignacion(evaluacion);
+            
+            bool validarFor = Condicion();
+
+            long contador = archivo.BaseStream.Position;
             //Requerimiento 4
+            if (!evaluacion)
+            {
+                validarFor = false;
+            }
+            //Obtener el contador del StreamWriter
+            match(";");
+            
+            
             //Requerimiento 6:
             // a) Nescesito Guardar la posicion de lectura en el archivo
-            bool validarFor = Condicion();
-            // b) Metemos un ciclo while despues de validar el For
+
+            //Metemos un ciclo while despues de validar el For
+            do
+            {
             // while ()
             // {
-                match(";");
-                Incremento(evaluacion);
+                Incremento(validarFor);
                 match(")");
                 if (getContenido() == "{")
                 {
-                    BloqueInstrucciones(evaluacion);
+                    BloqueInstrucciones(validarFor);
                 }
                 else
                 {
-                    Instruccion(evaluacion);
+                    Instruccion(validarFor);
                 }
-                // c) Regresar a la posicion de lectura del archivo
-                // d) Sacar otro token
+                //retornar a la posicion de lectura del archivo
+                archivo.BaseStream.Position = contador;
+                NextToken();
+                bool validarFor = Condicion();
             // }
+            }while(validarFor);
+
+
+
         }
         //Incremento -> Identificador ++ | --
         private void Incremento(bool evaluacion)
@@ -500,6 +528,10 @@ namespace semantica
             match("(");
             //Requerimiento 4
             bool validarIf = Condicion();
+
+            if(!evaluacion){
+                validarIf = false;
+            }
             match(")");
             if (getContenido() == "{")
             {
@@ -515,11 +547,11 @@ namespace semantica
                 //Requerimiento 4
                 if (getContenido() == "{")
                 {
-                    BloqueInstrucciones(validarIf);
+                    BloqueInstrucciones(!validarIf);
                 }
                 else
                 {
-                    Instruccion(validarIf);
+                    Instruccion(!validarIf);
                 }
             }
         }
@@ -665,6 +697,11 @@ namespace semantica
                 {
                     log.Write(getContenido());
                     log.Write(" ");
+
+                    if (dominante < getTipo(getContenido()))
+                    {
+                        dominante = getTipo(getContenido());
+                    }
                     stack.Push(getValor(getContenido()));
                     match(Tipos.Identificador);
                 }

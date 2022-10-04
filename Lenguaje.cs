@@ -379,27 +379,21 @@ namespace semantica
             match("for");
             match("(");
             Asignacion(evaluacion);
-            
-            bool validarFor = Condicion();
-
-            long contador = archivo.BaseStream.Position;
-            //Requerimiento 4
-            if (!evaluacion)
-            {
-                validarFor = false;
-            }
-            //Obtener el contador del StreamWriter
-            match(";");
-            
-            
-            //Requerimiento 6:
-            // a) Nescesito Guardar la posicion de lectura en el archivo
-
-            //Metemos un ciclo while despues de validar el For
+            bool validarFor;
+            int pos = (int)getContador();
+            int lin = linea;
             do
             {
-            // while ()
-            // {
+                setContador(pos);
+                linea = lin;
+                setPosicion(getContador());
+                NextToken();  
+                validarFor = Condicion();
+                if (!evaluacion)
+                {
+                    validarFor = evaluacion;
+                }
+                match(";");
                 Incremento(validarFor);
                 match(")");
                 if (getContenido() == "{")
@@ -410,15 +404,13 @@ namespace semantica
                 {
                     Instruccion(validarFor);
                 }
-                //retornar a la posicion de lectura del archivo
-                archivo.BaseStream.Position = contador;
-                NextToken();
-                bool validarFor = Condicion();
-            // }
-            }while(validarFor);
+            } while (validarFor);
 
-
-
+        }
+        private void setPosicion(long posicion)
+        {
+            archivo.DiscardBufferedData();
+            archivo.BaseStream.Seek(posicion, SeekOrigin.Begin);
         }
         //Incremento -> Identificador ++ | --
         private void Incremento(bool evaluacion)

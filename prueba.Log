@@ -1,5 +1,5 @@
 Archivo: prueba.cpp
-9/29/2022 9:47:55 AM
+10/4/2022 9:53:54 AM
 
-y = x = 0
-Error de semantica: no podemos asignar un: <Float> a un <Char> en linea  16
+i = 1 = 1
+Error de sintaxis, se espera un ( en linea: 16

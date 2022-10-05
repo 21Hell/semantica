@@ -10,10 +10,12 @@ int d;
 float x;
 char y;   
 int i;
+int j;
 // Este programa calcula el volumen de un cilindro.
 void main()
 {
-    for (i=1;i<10;i++){
+    j = 1;
+    for (i=1;j<10;j++){
         printf(i);
         printf("hola");
     }

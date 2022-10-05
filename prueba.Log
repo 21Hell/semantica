@@ -1,21 +1,8 @@
 Archivo: prueba.cpp
-<<<<<<< HEAD
-10/4/2022 9:53:54 AM
+10/4/2022 9:34:38 PM
+
+j = 1 = 1
 
 i = 1 = 1
-Error de sintaxis, se espera un ( en linea: 16
-=======
-9/30/2022 6:40:58 PM
-
-x = 256 = 1
-1 2 2 3 
-Variables: 
-resultado Float 0
-area Float 0
-radio Float 0
-pi Float 0
-d Int 0
-x Float 1
-y Char 0
-i Int 0
->>>>>>> 1425f8808dd90d7dd181c81e678291a92d8a992c
+j 10 i j 10 i j 10 i j 10 i j 10 i j 10 i j 10 i j 10 i j 10 i j 10 i 
+j = Error de sintaxis, se espera un Asignacion en linea: 18

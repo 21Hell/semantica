@@ -396,15 +396,16 @@ namespace semantica
             match("(");
             Asignacion(evaluacion);
             bool validarFor;
-            int pos = (int)getContador();
+            long pos = posicion;
             int lin = linea;
             do
             {
-                setContador(pos);
-                linea = lin;
-                setPosicion(getContador());
-                NextToken();  
+                
+                
+                
+                
                 validarFor = Condicion();
+                
                 if (!evaluacion)
                 {
                     validarFor = evaluacion;
@@ -420,6 +421,10 @@ namespace semantica
                 {
                     Instruccion(validarFor);
                 }
+                posicion = pos-1;
+                linea = lin;
+                setPosicion(posicion);
+                NextToken();
             } while (validarFor);
 
         }

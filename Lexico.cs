@@ -9,7 +9,7 @@ namespace semantica
     {
         protected StreamReader archivo;
         protected StreamWriter log;
-        long contador = 0;
+        protected long posicion = 0;
         const int F = -1;
         const int E = -2;
         protected int linea;
@@ -273,11 +273,11 @@ namespace semantica
         }
         public long getContador()
         {
-            return contador;
+            return posicion;
         }
         public long setContador(long contador)
         {
-            return this.contador = contador;
+            return this.posicion = contador;
         }
         //WS,EF,EL,L, D, .,	E, +, -, =,	:, ;, &, |,	!, >, <, *,	%, /, ", ?,La, ', #
         public void NextToken()
@@ -295,7 +295,7 @@ namespace semantica
                 if (estado >= 0)
                 {
                     archivo.Read();
-                    contador += 1;
+                    posicion += 1;
                     if (c == '\n')
                     {
                         linea++;

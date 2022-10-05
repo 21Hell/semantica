@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/cwolf/Documents/Automatas/semantica/Semantica.csproj",
+      "projectUniqueName": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
       "projectName": "Semantica",
-      "projectPath": "/home/cwolf/Documents/Automatas/semantica/Semantica.csproj",
+      "projectPath": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
       "packagesPath": "/root/.nuget/packages/",
-      "outputPath": "/home/cwolf/Documents/Automatas/semantica/obj/",
+      "outputPath": "/home/cwolf-laptop/Documents/semantica/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/root/.nuget/NuGet/NuGet.Config"

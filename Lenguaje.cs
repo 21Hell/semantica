@@ -400,12 +400,7 @@ namespace semantica
             int lin = linea;
             do
             {
-                
-                
-                
-                
                 validarFor = Condicion();
-                
                 if (!evaluacion)
                 {
                     validarFor = evaluacion;
@@ -421,10 +416,16 @@ namespace semantica
                 {
                     Instruccion(validarFor);
                 }
-                posicion = pos-1;
-                linea = lin;
-                setPosicion(posicion);
-                NextToken();
+
+                if (validarFor)
+                {
+                    posicion = pos-1;
+                    linea = lin;
+                    log.WriteLine();
+                    setPosicion(posicion);
+                    NextToken();
+                    log.WriteLine("Repetir ciclo for");
+                }
             } while (validarFor);
 
         }

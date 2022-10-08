@@ -56,11 +56,7 @@ namespace semantica
         {
             if (tipoDato == "Char")
             {
-<<<<<<< HEAD
-                return valor % 255;
-=======
                 return valor % 256;
->>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783
             }
             else if (tipoDato == "Int")
             {
@@ -431,10 +427,6 @@ namespace semantica
                     log.WriteLine("Repetir ciclo for");
                 }
             } while (validarFor);
-<<<<<<< HEAD
-
-=======
->>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783
         }
         private void setPosicion(long posicion)
         {
@@ -744,14 +736,6 @@ namespace semantica
                     {
                         case "char":
                             casteo = Variable.TipoDato.Char;
-<<<<<<< HEAD
-                            break;
-                        case "int":
-                            casteo = Variable.TipoDato.Int;
-                            break;
-                        case "float":
-                            casteo = Variable.TipoDato.Float;
-=======
 
                             break;
                         case "int":
@@ -761,7 +745,6 @@ namespace semantica
                         case "float":
                             casteo = Variable.TipoDato.Float;
                             
->>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783
                             break;
                     }
                     match(Tipos.TipoDato);
@@ -772,14 +755,9 @@ namespace semantica
                 match(")");
                 if (huboCasteo)
                 {
-<<<<<<< HEAD
-                    float valor = stack.Pop();
-                    Console.WriteLine("Casteo: " + valor + " a " + casteo);
-=======
                     dominante = casteo;
                     float valor = stack.Pop();
                     //Console.WriteLine("Casteo: " + valor + " a " + casteo);
->>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783
                     stack.Push(convert(valor, casteo.ToString())); 
                     //Requerimiento -> 2;
                     //Saco un elemento del stack

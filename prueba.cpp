@@ -1,29 +1,6 @@
 /*
     Melendez Chavez Ivan
 */
-<<<<<<< HEAD
-#include <iostream>
-#include <stdio.h>
-#include <conio.h>
-float resultado;
-float area, radio, pi;
-int d;
-float x;
-char y;   
-int i;
-int j;
-int h;
-// Este programa calcula el volumen de un cilindro.
-void main()
-{
-
-
-    y = (char)(256);
-    printf(y);
-
-
-
-=======
 float area, radio, pi, resultado;
 int a, d, altura;
 float x;
@@ -64,5 +41,4 @@ void main(){
     printf(y);
     printf("\nA continuacion se intenta asignar un int a un char sin usar casteo: \n");
     y = a; //Requerimiento 1.- debe marcar error
->>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783
 }

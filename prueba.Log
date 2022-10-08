@@ -1,10 +1,4 @@
 Archivo: prueba.cpp
-<<<<<<< HEAD
-10/8/2022 5:30:50 PM
-
-y = 256 = 1
-Error de semantica: no podemos asignar un: <Int> a un <Char> en linea  21
-=======
 10/8/2022 5:37:26 PM
 altura 2 
 i = altura = 6
@@ -83,4 +77,3 @@ y = a = 0
 y 
 y = a = 256
 Error de semantica: no podemos asignar un: <Int> a un <Char> en linea  44
->>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783

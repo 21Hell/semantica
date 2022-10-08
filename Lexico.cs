@@ -9,17 +9,10 @@ namespace semantica
     {
         protected StreamReader archivo;
         protected StreamWriter log;
-<<<<<<< HEAD
-        protected long posicion = 0;
-        const int F = -1;
-        const int E = -2;
-        protected int linea;
-=======
         const int F = -1;
         const int E = -2;
         protected int linea;
         protected long posicion;
->>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783
         int[,] TRAND = new int[,]
         {
             //WS,EF,EL,L, D, .,	E, +, -, =,	:, ;, &, |,	!, >, <, *,	%, /, ", ?,La, ', #
@@ -278,24 +271,9 @@ namespace semantica
             }
             return 22;
         }
-<<<<<<< HEAD
-        public long getContador()
-        {
-            return posicion;
-        }
-        public long setContador(long contador)
-        {
-            return this.posicion = contador;
-        }
         //WS,EF,EL,L, D, .,	E, +, -, =,	:, ;, &, |,	!, >, <, *,	%, /, ", ?,La, ', #
         public void NextToken()
         {
-            
-=======
-        //WS,EF,EL,L, D, .,	E, +, -, =,	:, ;, &, |,	!, >, <, *,	%, /, ", ?,La, ', #
-        public void NextToken()
-        {
->>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783
             string buffer = "";
             char c;
             int estado = 0;

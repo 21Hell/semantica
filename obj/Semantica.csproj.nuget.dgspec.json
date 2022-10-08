@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "/home/cwolf/Documents/Automatas/semantica/Semantica.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "/home/cwolf/Documents/Automatas/semantica/Semantica.csproj",
         "packagesPath": "/root/.nuget/packages/",
         "outputPath": "/home/cwolf/Documents/Automatas/semantica/obj/",
+=======
+    "/home/cwolf/Downloads/semantica-1425f8808dd90d7dd181c81e678291a92d8a992c/Semantica.csproj": {}
+  },
+  "projects": {
+    "/home/cwolf/Downloads/semantica-1425f8808dd90d7dd181c81e678291a92d8a992c/Semantica.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/cwolf/Downloads/semantica-1425f8808dd90d7dd181c81e678291a92d8a992c/Semantica.csproj",
+        "projectName": "Semantica",
+        "projectPath": "/home/cwolf/Downloads/semantica-1425f8808dd90d7dd181c81e678291a92d8a992c/Semantica.csproj",
+        "packagesPath": "/root/.nuget/packages/",
+        "outputPath": "/home/cwolf/Downloads/semantica-1425f8808dd90d7dd181c81e678291a92d8a992c/obj/",
+>>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/root/.nuget/NuGet/NuGet.Config"

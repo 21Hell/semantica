@@ -1,0 +1,79 @@
+Archivo: prueba.cpp
+10/8/2022 5:37:26 PM
+altura 2 
+i = altura = 6
+i 0 
+j = 0 = 0
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+i 0 
+j = 0 = 0
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+i 0 
+j = 0 = 0
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+i 0 
+j = 0 = 0
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+i 0 
+j = 0 = 0
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+i 0 
+j = 0 = 0
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+j altura i - j 2 
+Repetir ciclo for
+i 0 
+j = 0 = 0
+j altura i - j 2 1 1 2 2 
+a = 256 = 256
+a 
+y = a = 0
+y 
+y = a = 256
+Error de semantica: no podemos asignar un: <Int> a un <Char> en linea  44

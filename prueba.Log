@@ -1,7 +1,11 @@
 Archivo: prueba.cpp
-10/8/2022 5:37:26 PM
+10/18/2022 8:21:45 AM
 altura 2 
-i = altura = 6
+i = altura = 3
+i 0 
+j = 0 = 0
+j altura i - j 2 
+Repetir ciclo for
 i 0 
 j = 0 = 0
 j altura i - j 2 
@@ -10,58 +14,6 @@ j altura i - j 2
 Repetir ciclo for
 i 0 
 j = 0 = 0
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-i 0 
-j = 0 = 0
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-i 0 
-j = 0 = 0
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-i 0 
-j = 0 = 0
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-i 0 
-j = 0 = 0
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
-j altura i - j 2 
-Repetir ciclo for
 j altura i - j 2 
 Repetir ciclo for
 j altura i - j 2 

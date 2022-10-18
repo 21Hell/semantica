@@ -392,12 +392,14 @@ namespace semantica
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Intruccion 
         private void For(bool evaluacion)
         {
+            int incrementador = 0;
             match("for");
             match("(");
             Asignacion(evaluacion);
             bool validarFor;
             long pos = posicion;
             int lin = linea;
+            string variable = getContenido();
             do
             {
                 validarFor = Condicion();
@@ -406,7 +408,7 @@ namespace semantica
                     validarFor = evaluacion;
                 }
                 match(";");
-                Incremento(validarFor);
+                incrementador = Incremento(validarFor);
                 match(")");
                 if (getContenido() == "{")
                 {
@@ -416,10 +418,11 @@ namespace semantica
                 {
                     Instruccion(validarFor);
                 }
-
+                //If que valida si se cilca o no 
                 if (validarFor)
                 {
-                    posicion = pos-1;
+                    modVariable(variable, getValor(variable) + incrementador);    
+                    posicion = pos - variable.Length;
                     linea = lin;
                     log.WriteLine();
                     setPosicion(posicion);
@@ -434,7 +437,7 @@ namespace semantica
             archivo.BaseStream.Seek(posicion, SeekOrigin.Begin);
         }
         //Incremento -> Identificador ++ | --
-        private void Incremento(bool evaluacion)
+        private int Incremento(bool evaluacion)
         {
             string variable = getContenido();
             if (existeVariable(getContenido()))
@@ -445,7 +448,7 @@ namespace semantica
                     match("++");
                     if (evaluacion)
                     {
-                        modVariable(variable, getValor(variable) + 1);
+                        return 1;
                     }
                 }
                 else if (getContenido() == "--")
@@ -453,15 +456,18 @@ namespace semantica
                     match("--");
                     if (evaluacion)
                     {
-                        modVariable(variable, getValor(variable) - 1);
+                        return -1;
                     }
                 }
             }
+            
             else
             {
                 throw new Error("Error de syntaxis: variable no declarada: <" + getContenido() + "> en linea  " + linea, log);
             }
+            return 0;
         }
+
 
         //Switch -> switch (Expresion) {Lista de casos} | (default: )
         private void Switch(bool evaluacion)

@@ -13,19 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "/home/cwolf/Documents/Automatas/semantica/Semantica.csproj",
+      "projectUniqueName": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
       "projectName": "Semantica",
-      "projectPath": "/home/cwolf/Documents/Automatas/semantica/Semantica.csproj",
+      "projectPath": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
       "packagesPath": "/root/.nuget/packages/",
-      "outputPath": "/home/cwolf/Documents/Automatas/semantica/obj/",
-=======
-      "projectUniqueName": "/home/cwolf/Downloads/semantica-1425f8808dd90d7dd181c81e678291a92d8a992c/Semantica.csproj",
-      "projectName": "Semantica",
-      "projectPath": "/home/cwolf/Downloads/semantica-1425f8808dd90d7dd181c81e678291a92d8a992c/Semantica.csproj",
-      "packagesPath": "/root/.nuget/packages/",
-      "outputPath": "/home/cwolf/Downloads/semantica-1425f8808dd90d7dd181c81e678291a92d8a992c/obj/",
->>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783
+      "outputPath": "/home/cwolf-laptop/Documents/semantica/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/root/.nuget/NuGet/NuGet.Config"
@@ -69,5 +61,13 @@
         "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/6.0.108/RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file /home/cwolf-laptop/Documents/semantica/obj/project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

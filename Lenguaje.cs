@@ -18,7 +18,17 @@ using System.Collections.Generic;
 //                     o icrementos de factor superen el rango de la variable
 //                  d) Considerar el inciso b) y c) para el for 
 //                  e) que funcione el do y el while
-//Requerimiento 3.- 
+//Requerimiento 3.- Agregar:
+//                  a) considerar las variables y los casteos de las expresiones matematicas en ensamblador
+//                  b) considerar el residuo de la división en ensamblador, el residuo de la division queda en dx 
+//                  c) Programar el print y scan en ensamblador
+//Requerimiento 4.- Agregar:
+//                  a) Programar else en assembler
+//                  b) Programar for en assembler
+//Requerimiento 5.- Agregar:
+//                  a) Programar while en assembler
+//                  b) Programar do while en assembler
+
 namespace semantica
 {
     public class Lenguaje : Sintaxis
@@ -28,14 +38,16 @@ namespace semantica
 
         Variable.TipoDato dominante;
         int cIf;
+        int Cfor;
         public Lenguaje()
         {
-            cIf = 0;
+            cIf = Cfor = 0;
+
         }
 
         public Lenguaje(string nombre) : base(nombre)
         {
-            cIf = 0;
+            cIf = Cfor = 0;
         }
 
         ~Lenguaje()
@@ -425,6 +437,8 @@ namespace semantica
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Intruccion 
         private void For(bool evaluacion)
         {
+            string etiquetaInicoFor = "inicioFor" + Cfor;
+            string etiquetaFinFor = "finFor" + Cfor++;
             int incrementador = 0;
             match("for");
             match("(");
@@ -464,6 +478,7 @@ namespace semantica
                     log.WriteLine("Repetir ciclo for");
                 }
             } while (validarFor);
+            asm.WriteLine(etiquetaFinFor + ":");
         }
         private void setPosicion(long posicion)
         {
@@ -588,10 +603,7 @@ namespace semantica
         //If -> if(Condicion) bloque de instrucciones (else bloque de instrucciones)?
         private void If(bool evaluacion)
         {
-            string etiquetaIf = "if" + ++
-            
-            cIf;
-            cIf++;
+            string etiquetaIf = "if" + ++cIf;
             match("if");
             match("(");
             //Requerimiento 4
@@ -772,6 +784,8 @@ namespace semantica
                     dominante = evaluaNumero(float.Parse(getContenido()));
                 }
                 stack.Push(float.Parse(getContenido()));
+                asm.WriteLine("MOV AX,"+getContenido());
+                asm.WriteLine("PUSH AX");    
                 match(Tipos.Numero);
             }
             else if (getClasificacion() == Tipos.Identificador)
@@ -786,8 +800,6 @@ namespace semantica
                         dominante = getTipo(getContenido());
                     }
                     stack.Push(getValor(getContenido()));
-                    asm.WriteLine("MOV AX,"+getContenido());
-                    asm.WriteLine("PUSH AX");
                     match(Tipos.Identificador);
                 }
                 else

@@ -18,7 +18,7 @@ namespace semantica
                 {
                     a.NextToken();
                 }*/
-                a.cerrar();
+                a.cerrar(); 
             }
             catch (Exception e)
             {

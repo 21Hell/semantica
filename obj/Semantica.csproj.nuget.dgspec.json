@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/cwolf-laptop/Documents/semantica/Semantica.csproj": {}
+    "/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/Semantica.csproj": {}
   },
   "projects": {
-    "/home/cwolf-laptop/Documents/semantica/Semantica.csproj": {
+    "/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/Semantica.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
+        "projectUniqueName": "/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/Semantica.csproj",
         "projectName": "Semantica",
-        "projectPath": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
+        "projectPath": "/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/Semantica.csproj",
         "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/home/cwolf-laptop/Documents/semantica/obj/",
+        "outputPath": "/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/root/.nuget/NuGet/NuGet.Config"

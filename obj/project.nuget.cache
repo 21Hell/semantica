@@ -1,15 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YKxk/2zELadnUZSHDXFPwL/FW6+u0n5jRBFM2xfhvB07OlosGLGjsNpwZ4EBliS5x5x0mE731QjJAdqh7DPhsw==",
+  "dgSpecHash": "GZ85z1a8Tiwel69pLwqeOqGfcU09o4nkwE/7wqcsFK8OGiRoNbsOSRziHlJ+n/kYsqFKYWPWhZOPY2He0Nkwxg==",
   "success": true,
-  "projectFilePath": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
+  "projectFilePath": "/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/Semantica.csproj",
   "expectedPackageFiles": [],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file /home/cwolf-laptop/Documents/semantica/obj/project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

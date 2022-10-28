@@ -46,3 +46,18 @@
 /home/cwolf/Downloads/semantica-1425f8808dd90d7dd181c81e678291a92d8a992c/obj/Debug/net6.0/Semantica.pdb
 /home/cwolf/Downloads/semantica-1425f8808dd90d7dd181c81e678291a92d8a992c/obj/Debug/net6.0/Semantica.genruntimeconfig.cache
 >>>>>>> 47c8ecb3b0b8260f0fa40de53c04f9d6443ac783
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/bin/Debug/net6.0/Semantica
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/bin/Debug/net6.0/Semantica.deps.json
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/bin/Debug/net6.0/Semantica.runtimeconfig.json
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/bin/Debug/net6.0/Semantica.dll
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/bin/Debug/net6.0/ref/Semantica.dll
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/bin/Debug/net6.0/Semantica.pdb
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/Debug/net6.0/Semantica.csproj.AssemblyReference.cache
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/Debug/net6.0/Semantica.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/Debug/net6.0/Semantica.AssemblyInfoInputs.cache
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/Debug/net6.0/Semantica.AssemblyInfo.cs
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/Debug/net6.0/Semantica.csproj.CoreCompileInputs.cache
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/Debug/net6.0/Semantica.dll
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/Debug/net6.0/ref/Semantica.dll
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/Debug/net6.0/Semantica.pdb
+/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/Debug/net6.0/Semantica.genruntimeconfig.cache

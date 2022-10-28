@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 //Requerimiento 1.- Actualizacion: 
-//                  a) Agregar el reciduo de la division en el porfactor
+//               (X)a) Agregar el reciduo de la division en el porfactor 
 //                  b) Agregar en intruccion los incrementos de termino y los incrementos de factor 
 //                     a++, a--, a+=1, a-=1, a*=1, a/=1, a%=1
 //                     en donde el 1 puede ser una expresion 
@@ -42,18 +42,18 @@ namespace semantica
         public Lenguaje()
         {
             cIf = Cfor = 0;
-
+            Console.WriteLine("Lenguaje");
         }
 
         public Lenguaje(string nombre) : base(nombre)
         {
             cIf = Cfor = 0;
+            Console.WriteLine("\nLenguaje");
         }
 
         ~Lenguaje()
         {
-            Console.WriteLine("Destructor");
-            cerrar();
+            Console.WriteLine("\nDestructor");
         }
 
         //Requerimiento 5 
@@ -353,6 +353,46 @@ namespace semantica
                 dominante = Variable.TipoDato.Char;
                 if (getClasificacion() == Tipos.IncrementoTermino || getClasificacion() == Tipos.IncrementoFactor)
                 {
+                    string IncrementoTipo = getContenido();
+                    if(getClasificacion() == Tipos.IncrementoTermino)
+                    {
+                        match(Tipos.IncrementoTermino);
+                        Expresion();
+                        switch (IncrementoTipo)
+                        {
+                            case "+=":
+                                float resultado = stack.Pop();
+                                modVariable(NombreVar, resultado);
+                                asm.WriteLine("INC " + NombreVar);
+                            break;
+                            case "-=":
+                                resultado = stack.Pop();
+                                modVariable(NombreVar, -resultado);
+                                asm.WriteLine("DEC " + NombreVar);
+                            break;
+                            case "*=":
+                                resultado = stack.Pop();
+                                resultado = resultado * getValor(NombreVar);
+                                modVariable(NombreVar, resultado);
+                            break;
+                            case "/=":
+                                resultado = stack.Pop();
+                                resultado = getValor(NombreVar) / resultado;
+                                modVariable(NombreVar, resultado);
+                            break;
+                            case "%=":
+                                resultado = stack.Pop();
+                                resultado = getValor(NombreVar) % resultado;
+                                modVariable(NombreVar, resultado);
+                            break;
+
+                        }
+                        match(";");
+                    }
+                    else
+                    {
+                        match(Tipos.IncrementoFactor);
+                    }
                     //Requerimiento 1.b
                     //Requerimiento 1.c
                 }
@@ -765,9 +805,18 @@ namespace semantica
                         asm.WriteLine("PUSH AX");
                         break;
                     case "/":
-                        stack.Push(n2 / n1);
-                        asm.WriteLine("DIV BX");
-                        asm.WriteLine("PUSH AX");
+                        //Requerimiento 1.a
+                        if (n1 != 0)
+                        {   
+                            //Obtener reciduo como numero 
+                            stack.Push(n2 / n1);
+                            asm.WriteLine("DIV BX");
+                            asm.WriteLine("PUSH AX");
+                        }
+                        else
+                        {
+                            throw new Error("Error de syntaxis: division entre cero en linea  " + linea, log);
+                        }
                         break;
                 }
             }

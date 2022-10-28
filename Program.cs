@@ -3,6 +3,7 @@
 */
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace semantica
 {
@@ -10,20 +11,22 @@ namespace semantica
     {
         static void Main(string[] args)
         {
+
             try
             {
-                Lenguaje a = new Lenguaje();
-                a.Programa();
-                /* while(!a.FinArchivo())
-                {
-                    a.NextToken();
-                }*/
-                a.cerrar(); 
+                crearInstancia();
+                GC.Collect();
+                Console.ReadLine();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+        public static void crearInstancia()
+        {
+            Lenguaje a = new Lenguaje();
+            a.Programa();
         }
     }
 }

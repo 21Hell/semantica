@@ -48,12 +48,12 @@ namespace semantica
         public Lenguaje(string nombre) : base(nombre)
         {
             cIf = Cfor = 0;
-            Console.WriteLine("\nLenguaje");
+            Console.WriteLine("Lenguaje");
         }
 
         ~Lenguaje()
         {
-            Console.WriteLine("\nDestructor");
+            Console.WriteLine("Destructor");
         }
 
         //Requerimiento 5 
@@ -344,6 +344,7 @@ namespace semantica
         //Asignacion -> identificador = cadena | Expresion;
         private void Asignacion(bool evaluacion)
         {
+            Console.WriteLine("Asignacion");
             log.WriteLine();
             log.Write(getContenido() + " = ");
             string NombreVar = getContenido();
@@ -357,7 +358,10 @@ namespace semantica
                     if(getClasificacion() == Tipos.IncrementoTermino)
                     {
                         match(Tipos.IncrementoTermino);
-                        Expresion();
+                        if(!(IncrementoTipo.Equals("++")||IncrementoTipo.Equals("--")))
+                        {
+                            Expresion();
+                        }
                         switch (IncrementoTipo)
                         {
                             case "+=":
@@ -385,7 +389,16 @@ namespace semantica
                                 resultado = getValor(NombreVar) % resultado;
                                 modVariable(NombreVar, resultado);
                             break;
-
+                            case "++":
+                                Console.WriteLine("Incremento");
+                                modVariable(NombreVar, 1);
+                                asm.WriteLine("INC " + NombreVar);
+                            break;
+                            case "--":
+                                Console.WriteLine("Decremento");
+                                modVariable(NombreVar, -1);
+                                asm.WriteLine("DEC " + NombreVar);
+                            break;
                         }
                         match(";");
                     }

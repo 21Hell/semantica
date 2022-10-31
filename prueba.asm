@@ -15,6 +15,12 @@ ORG 1000h
 	j DW ?
 	k DW ?
 	l DW ?
+MOV AX,255
+PUSH AX
+POP AX
+MOV i, AX
+MOV AX,10
+PUSH AX
 INC i
 RET
 END

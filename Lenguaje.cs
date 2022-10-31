@@ -374,21 +374,6 @@ namespace semantica
                                 modVariable(NombreVar, -resultado);
                                 asm.WriteLine("DEC " + NombreVar);
                             break;
-                            case "*=":
-                                resultado = stack.Pop();
-                                resultado = resultado * getValor(NombreVar);
-                                modVariable(NombreVar, resultado);
-                            break;
-                            case "/=":
-                                resultado = stack.Pop();
-                                resultado = getValor(NombreVar) / resultado;
-                                modVariable(NombreVar, resultado);
-                            break;
-                            case "%=":
-                                resultado = stack.Pop();
-                                resultado = getValor(NombreVar) % resultado;
-                                modVariable(NombreVar, resultado);
-                            break;
                             case "++":
                                 Console.WriteLine("Incremento");
                                 modVariable(NombreVar, 1);
@@ -405,9 +390,27 @@ namespace semantica
                     else
                     {
                         match(Tipos.IncrementoFactor);
+                        Expresion();
+                        switch(IncrementoTipo)
+                        {
+                            case "*=":
+                                float resultado = stack.Pop();
+                                resultado = resultado * getValor(NombreVar);
+                                modVariable(NombreVar, resultado);
+                            break;
+                            case "/=":
+                                resultado = stack.Pop();
+                                resultado = getValor(NombreVar) / resultado;
+                                modVariable(NombreVar, resultado);
+                            break;
+                            case "%=":
+                                resultado = stack.Pop();
+                                resultado = getValor(NombreVar) % resultado;
+                                modVariable(NombreVar, resultado);
+                            break;
+                        }
+                        match(";");
                     }
-                    //Requerimiento 1.b
-                    //Requerimiento 1.c
                 }
                 else
                 {

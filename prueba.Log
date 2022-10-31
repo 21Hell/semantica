@@ -1,7 +1,9 @@
 Archivo: prueba.cpp
-10/27/2022 11:55:54 PM
+10/30/2022 7:15:33 PM
 
-i = 
+i = 255 = 255
+
+i = 10 
 Variables: 
 area Float 0
 radio Float 0
@@ -12,7 +14,7 @@ d Int 0
 altura Int 0
 x Float 0
 y Int 0
-i Int 1
+i Char 10
 j Int 0
 k Int 0
 l Int 0

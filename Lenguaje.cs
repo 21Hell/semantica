@@ -6,18 +6,18 @@ using System.Collections.Generic;
 
 //Requerimiento 1.- Actualizacion: 
 //               (X)a) Agregar el reciduo de la division en el porfactor 
-//                  b) Agregar en intruccion los incrementos de termino y los incrementos de factor 
+//               (X)b) Agregar en intruccion los incrementos de termino y los incrementos de factor 
 //                     a++, a--, a+=1, a-=1, a*=1, a/=1, a%=1
 //                     en donde el 1 puede ser una expresion 
-//                  c) Programar el destructor
+//                (X)c) Programar el destructor
 //                     para ejecutar el metodo cerrarArchivo
 //                     #libreria especial? contenedor?
 //                     #en la clase lexico
 //Requerimiento 2.- Actualizacion la venganza:
-//                  c) Marcar errores semanticos cuando los incrementos de termino
+//                  (X)c) Marcar errores semanticos cuando los incrementos de termino
 //                     o icrementos de factor superen el rango de la variable
-//                  d) Considerar el inciso b) y c) para el for 
-//                  e) que funcione el do y el while
+//                  (X)d) Considerar el inciso b) y c) para el for 
+//                  (X)e) que funcione el do y el while
 //Requerimiento 3.- Agregar:
 //                  a) considerar las variables y los casteos de las expresiones matematicas en ensamblador
 //                  b) considerar el residuo de la división en ensamblador, el residuo de la division queda en dx 
@@ -344,7 +344,6 @@ namespace semantica
         //Asignacion -> identificador = cadena | Expresion;
         private void Asignacion(bool evaluacion)
         {
-            Console.WriteLine("Asignacion");
             log.WriteLine();
             log.Write(getContenido() + " = ");
             string NombreVar = getContenido();
@@ -357,20 +356,37 @@ namespace semantica
                     string incrementoTipo = getContenido();
                     if (getClasificacion() == Tipos.IncrementoTermino)
                     {
-                        match(Tipos.IncrementoTermino);
-                        if (!(incrementoTipo.Equals("++") || incrementoTipo.Equals("--")))
-                        {
-                            Expresion();
-                        }
                         float resultado = Incrementotipado(NombreVar, incrementoTipo);
                         match(";");
+                        if (dominante < evaluaNumero(resultado))
+                        {
+                            dominante = evaluaNumero(resultado);
+                        }
+                        if (dominante <= getTipo(NombreVar))
+                        {
+                            modVariable(NombreVar, resultado);
+                        }
+                        else
+                        {
+                            throw new Error("Error de semantica: variable <" + NombreVar + "> no puede ser asignada con el valor <" + resultado + "> en linea " + linea, log);
+                        }
                     }
                     else
                     {
-                        match(Tipos.IncrementoFactor);
-                        Expresion();
                         float resultado = Incrementotipado(NombreVar, incrementoTipo);
                         match(";");
+                        if (dominante < evaluaNumero(resultado))
+                        {
+                            dominante = evaluaNumero(resultado);
+                        }
+                        if (dominante <= getTipo(NombreVar))
+                        {
+                            modVariable(NombreVar, resultado);
+                        }
+                        else
+                        {
+                            throw new Error("Error de semantica: variable <" + NombreVar + "> no puede ser asignada con el valor <" + resultado + "> en linea " + linea, log);
+                        }
                     }
                 }
                 else
@@ -409,12 +425,11 @@ namespace semantica
         private float Incrementotipado(string Variable, string tipoIncremento)
         {
             float resultado = getValor(Variable);
-            if (existeVariable(getContenido()))
+            if (existeVariable(Variable))
             {
                 switch (tipoIncremento)
                 {
                     case "++":
-                        Console.WriteLine("IncrementoSI");
                         match("++");
                         resultado++;
                         break;
@@ -424,22 +439,27 @@ namespace semantica
                         break;
                     case "+=":
                         match("+=");
+                        Expresion();
                         resultado += stack.Pop();
                         break;
                     case "-=":
                         match("-=");
+                        Expresion();
                         resultado -= stack.Pop();
                         break;
                     case "*=":
                         match("*=");
+                        Expresion();
                         resultado *= stack.Pop();
                         break;
                     case "/=":
                         match("/=");
+                        Expresion();
                         resultado /= stack.Pop();
                         break;
                     case "%=":
                         match("%=");
+                        Expresion();
                         resultado %= stack.Pop();
                         break;
                 }
@@ -454,45 +474,76 @@ namespace semantica
         {
             match("while");
             match("(");
-            bool validarWhile = Condicion("");
-            if (!evaluacion)
+            bool validarWhile;
+            long pos = posicion;
+            int lin = linea;
+            string variable = getContenido();
+            do
             {
-                validarWhile = false;
-            }
-            //Requerimiento 4 
-            match(")");
-            if (getContenido() == "{")
-            {
-                BloqueInstrucciones(validarWhile);
-            }
-            else
-            {
-                Instruccion(evaluacion);
-            }
+                validarWhile = Condicion("");
+                if (!evaluacion)
+                {
+                    validarWhile = false;
+                }
+                //Requerimiento 4 
+                match(")");
+                if (getContenido() == "{")
+                {
+                    BloqueInstrucciones(validarWhile);
+                }
+                else
+                {
+                    Instruccion(evaluacion);
+                }
+
+                if (validarWhile)
+                {
+                    posicion = pos - variable.Length;
+                    linea = lin;
+                    setPosicion(posicion);
+                    NextToken();
+
+                }
+            } while (validarWhile);
+
         }
 
         //Do -> do bloque de instrucciones | intruccion while(Condicion)
         private void Do(bool evaluacion)
-        {
+        {   
             match("do");
-            if (getContenido() == "{")
+            int lin = linea;
+            long pos = posicion;
+            bool validarDo;
+            do
             {
-                BloqueInstrucciones(evaluacion);
-            }
-            else
-            {
-                Instruccion(evaluacion);
-            }
-            match("while");
-            match("(");
-            //Requerimiento 4
-            bool validarDo = Condicion("");
-            if (!evaluacion)
-            {
-                validarDo = false;
-            }
-            match(")");
-            match(";");
+                if (getContenido() == "{")
+                {
+                    BloqueInstrucciones(evaluacion);
+                }
+                else
+                {
+                    Instruccion(evaluacion);
+                }
+                match("while");
+                match("(");
+                string variable = getContenido();
+                validarDo = Condicion("");
+                if (!evaluacion)
+                {
+                    validarDo = false;
+                }
+                //Requerimiento 4 
+                match(")");
+                match(";");
+                if (validarDo)
+                {
+                    posicion = pos - 2;
+                    linea = lin;
+                    setPosicion(posicion);
+                    NextToken();
+                }
+            } while (validarDo);
         }
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Intruccion 
         private void For(bool evaluacion)
@@ -522,7 +573,6 @@ namespace semantica
                 incrementador = Incrementotipado(variable, getContenido());
                 //Requerimiento 1.d
                 match(")");
-                Console.WriteLine("SI");
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(validarFor);

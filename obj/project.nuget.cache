@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5KkJJrhH3PMH/i2NfUpasTcx465YE8DAlXrLSl10SVSmypm9TjB7mqCvBf/fYpY2fq8EahP5IcSck1A0wNmH3Q==",
+  "dgSpecHash": "YKxk/2zELadnUZSHDXFPwL/FW6+u0n5jRBFM2xfhvB07OlosGLGjsNpwZ4EBliS5x5x0mE731QjJAdqh7DPhsw==",
   "success": true,
-  "projectFilePath": "/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/Semantica.csproj",
+  "projectFilePath": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

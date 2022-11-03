@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "/home/cwolf/.nuget/packages/": {}
+    "/home/cwolf-laptop/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/Semantica.csproj",
+      "projectUniqueName": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
       "projectName": "Semantica",
-      "projectPath": "/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/Semantica.csproj",
-      "packagesPath": "/home/cwolf/.nuget/packages/",
-      "outputPath": "/mnt/shared_storage/Fedora/Documentos/Automatas/semantica/obj/",
+      "projectPath": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
+      "packagesPath": "/home/cwolf-laptop/.nuget/packages/",
+      "outputPath": "/home/cwolf-laptop/Documents/semantica/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/cwolf/.nuget/NuGet/NuGet.Config"
+        "/home/cwolf-laptop/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -58,7 +58,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/6.0.109/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/6.0.108/RuntimeIdentifierGraph.json"
       }
     }
   }

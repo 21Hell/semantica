@@ -160,7 +160,7 @@ namespace semantica
             asm.WriteLine(";Variables");
             foreach (Variable v in variables)
             {
-                asm.WriteLine("\t"+v.getNombre()+" DW ?");
+                asm.WriteLine("\t" + v.getNombre() + " DW ?");
             }
         }
 
@@ -354,61 +354,22 @@ namespace semantica
                 dominante = Variable.TipoDato.Char;
                 if (getClasificacion() == Tipos.IncrementoTermino || getClasificacion() == Tipos.IncrementoFactor)
                 {
-                    string IncrementoTipo = getContenido();
-                    if(getClasificacion() == Tipos.IncrementoTermino)
+                    string incrementoTipo = getContenido();
+                    if (getClasificacion() == Tipos.IncrementoTermino)
                     {
                         match(Tipos.IncrementoTermino);
-                        if(!(IncrementoTipo.Equals("++")||IncrementoTipo.Equals("--")))
+                        if (!(incrementoTipo.Equals("++") || incrementoTipo.Equals("--")))
                         {
                             Expresion();
                         }
-                        switch (IncrementoTipo)
-                        {
-                            case "+=":
-                                float resultado = stack.Pop();
-                                modVariable(NombreVar, resultado);
-                                asm.WriteLine("INC " + NombreVar);
-                            break;
-                            case "-=":
-                                resultado = stack.Pop();
-                                modVariable(NombreVar, -resultado);
-                                asm.WriteLine("DEC " + NombreVar);
-                            break;
-                            case "++":
-                                Console.WriteLine("Incremento");
-                                modVariable(NombreVar, 1);
-                                asm.WriteLine("INC " + NombreVar);
-                            break;
-                            case "--":
-                                Console.WriteLine("Decremento");
-                                modVariable(NombreVar, -1);
-                                asm.WriteLine("DEC " + NombreVar);
-                            break;
-                        }
+                        float resultado = Incrementotipado(NombreVar, incrementoTipo);
                         match(";");
                     }
                     else
                     {
                         match(Tipos.IncrementoFactor);
                         Expresion();
-                        switch(IncrementoTipo)
-                        {
-                            case "*=":
-                                float resultado = stack.Pop();
-                                resultado = resultado * getValor(NombreVar);
-                                modVariable(NombreVar, resultado);
-                            break;
-                            case "/=":
-                                resultado = stack.Pop();
-                                resultado = getValor(NombreVar) / resultado;
-                                modVariable(NombreVar, resultado);
-                            break;
-                            case "%=":
-                                resultado = stack.Pop();
-                                resultado = getValor(NombreVar) % resultado;
-                                modVariable(NombreVar, resultado);
-                            break;
-                        }
+                        float resultado = Incrementotipado(NombreVar, incrementoTipo);
                         match(";");
                     }
                 }
@@ -443,6 +404,49 @@ namespace semantica
             {
                 throw new Error("Error de syntaxis: variable no declarada: <" + getContenido() + "> en linea  " + linea, log);
             }
+        }
+
+        private float Incrementotipado(string Variable, string tipoIncremento)
+        {
+            float resultado = getValor(Variable);
+            if (existeVariable(getContenido()))
+            {
+                switch (tipoIncremento)
+                {
+                    case "++":
+                        Console.WriteLine("IncrementoSI");
+                        match("++");
+                        resultado++;
+                        break;
+                    case "--":
+                        match("--");
+                        resultado--;
+                        break;
+                    case "+=":
+                        match("+=");
+                        resultado += stack.Pop();
+                        break;
+                    case "-=":
+                        match("-=");
+                        resultado -= stack.Pop();
+                        break;
+                    case "*=":
+                        match("*=");
+                        resultado *= stack.Pop();
+                        break;
+                    case "/=":
+                        match("/=");
+                        resultado /= stack.Pop();
+                        break;
+                    case "%=":
+                        match("%=");
+                        resultado %= stack.Pop();
+                        break;
+                }
+                return resultado;
+            }
+            return 0;
+
         }
 
         //While -> while(Condicion) bloque de instrucciones | instruccion
@@ -495,7 +499,7 @@ namespace semantica
         {
             string etiquetaInicoFor = "inicioFor" + Cfor;
             string etiquetaFinFor = "finFor" + Cfor++;
-            int incrementador = 0;
+            float incrementador = 0;
             match("for");
             match("(");
             Asignacion(evaluacion);
@@ -505,15 +509,20 @@ namespace semantica
             string variable = getContenido();
             do
             {
+
                 validarFor = Condicion("");
+
                 if (!evaluacion)
                 {
                     validarFor = evaluacion;
                 }
+
                 match(";");
-                incrementador = Incremento(validarFor);
+                match(Tipos.Identificador);
+                incrementador = Incrementotipado(variable, getContenido());
                 //Requerimiento 1.d
                 match(")");
+                Console.WriteLine("SI");
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(validarFor);
@@ -525,7 +534,7 @@ namespace semantica
                 //If que valida si se cilca o no 
                 if (validarFor)
                 {
-                    modVariable(variable, getValor(variable) + incrementador);
+                    modVariable(variable, incrementador);
                     posicion = pos - variable.Length;
                     linea = lin;
                     log.WriteLine();
@@ -565,7 +574,6 @@ namespace semantica
                     }
                 }
             }
-
             else
             {
                 throw new Error("Error de syntaxis: variable no declarada: <" + getContenido() + "> en linea  " + linea, log);
@@ -607,7 +615,7 @@ namespace semantica
             match("case");
             Expresion();
             stack.Pop();
-            asm.WriteLine("POP AX");    
+            asm.WriteLine("POP AX");
             match(":");
             ListaInstruccionesCase(evaluacion);
             if (getContenido() == "break")
@@ -823,7 +831,7 @@ namespace semantica
                     case "/":
                         //Requerimiento 1.a
                         if (n1 != 0)
-                        {   
+                        {
                             //Obtener reciduo como numero 
                             stack.Push(n2 / n1);
                             asm.WriteLine("DIV BX");
@@ -849,8 +857,8 @@ namespace semantica
                     dominante = evaluaNumero(float.Parse(getContenido()));
                 }
                 stack.Push(float.Parse(getContenido()));
-                asm.WriteLine("MOV AX,"+getContenido());
-                asm.WriteLine("PUSH AX");    
+                asm.WriteLine("MOV AX," + getContenido());
+                asm.WriteLine("PUSH AX");
                 match(Tipos.Numero);
             }
             else if (getClasificacion() == Tipos.Identificador)

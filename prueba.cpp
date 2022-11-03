@@ -9,6 +9,9 @@ int y;
 char i ;int j;int k;int l;
 // Este programa calcula el volumen de un cilindro.
 void main(){
-    i = 255;
-    i += 10;
+    //For imprime los numeros del 1 al 10
+    
+    for (i = 1; i <= 10; i++){
+        printf("Numero: ", i);
+    }
 }

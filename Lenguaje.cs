@@ -19,9 +19,9 @@ using System.Collections.Generic;
 //                  (X)d) Considerar el inciso b) y c) para el for 
 //                  (X)e) que funcione el do y el while
 //Requerimiento 3.- Agregar:
-//                  a) considerar las variables y los casteos de las expresiones matematicas en ensamblador
-//                  b) considerar el residuo de la división en ensamblador, el residuo de la division queda en dx 
-//                  c) Programar el print y scan en ensamblador
+//             (1/2)a) considerar las variables y los casteos de las expresiones matematicas en ensamblador
+//                (X)b) considerar el residuo de la división en ensamblador, el residuo de la division queda en dx 
+//                (X)c) Programar el print y scan en ensamblador
 //Requerimiento 4.- Agregar:
 //                  a) Programar else en assembler
 //                  b) Programar for en assembler
@@ -161,6 +161,18 @@ namespace semantica
             foreach (Variable v in variables)
             {
                 asm.WriteLine("\t" + v.getNombre() + " DW ?");
+                switch (v.getTipo())
+                {
+                    case Variable.TipoDato.Char:
+                        asm.WriteLine("\t" + v.getNombre() + " DB " + v.getValor());
+                        break;
+                    case Variable.TipoDato.Int:
+                        asm.WriteLine("\t" + v.getNombre() + " DW " + v.getValor());
+                        break;
+                    case Variable.TipoDato.Float:
+                        asm.WriteLine("\t" + v.getNombre() + " DD " + v.getValor());
+                        break;
+                }
             }
         }
 
@@ -178,6 +190,10 @@ namespace semantica
             Main();
             displayVariables();
             asm.WriteLine("RET");
+            asm.WriteLine("DEFINE_SCAN_NUM");
+            asm.WriteLine("DEFINE_PRINT_NUM");
+            asm.WriteLine("DEFINE_PRINT_STR");
+
             asm.WriteLine("END");
 
         }
@@ -444,8 +460,8 @@ namespace semantica
                         break;
                     case "-=":
                         match("-=");
-                        Expresion();
-                        resultado -= stack.Pop();
+                        Expresion();asm.WriteLine("MOD AX, BX");
+                        asm.WriteLine("PUSH AX");
                         break;
                     case "*=":
                         match("*=");
@@ -550,10 +566,12 @@ namespace semantica
         {
             string etiquetaInicoFor = "inicioFor" + Cfor;
             string etiquetaFinFor = "finFor" + Cfor++;
+            asm.WriteLine(etiquetaInicoFor + ":");
             float incrementador = 0;
             match("for");
             match("(");
             Asignacion(evaluacion);
+
             bool validarFor;
             long pos = posicion;
             int lin = linea;
@@ -581,7 +599,7 @@ namespace semantica
                 {
                     Instruccion(validarFor);
                 }
-                //If que valida si se cilca o no 
+
                 if (validarFor)
                 {
                     modVariable(variable, incrementador);
@@ -590,7 +608,7 @@ namespace semantica
                     log.WriteLine();
                     setPosicion(posicion);
                     NextToken();
-                    log.WriteLine("Repetir ciclo for");
+                    log.WriteLine("Repetir ciclo for");");
                 }
             } while (validarFor);
             asm.WriteLine(etiquetaFinFor + ":");
@@ -763,6 +781,8 @@ namespace semantica
                     string str = getContenido();
                     string cleaned = limpiarPrints(str);
                     Console.Write(cleaned);
+                    //Printea usando PRINT_STR
+                    asm.WriteLine("PRINT_STR " + "\"" + cleaned + "\"");
                 }
                 match(Tipos.Cadena);
             }
@@ -771,6 +791,8 @@ namespace semantica
                 Expresion();
                 float resultado = stack.Pop();
                 asm.WriteLine("POP AX");
+                //Printea usando  PRINT_NUM macro
+                asm.WriteLine("PRINT_NUM AX");
                 if (evaluacion)
                 {
                     Console.Write(resultado);
@@ -808,6 +830,8 @@ namespace semantica
                 }
                 match(")");
                 match(";");
+                asm.WriteLine("CALL SCAN_NUM");
+                asm.WriteLine("MOV " + nombreVariable + ", CX");
             }
             else
             {
@@ -847,6 +871,21 @@ namespace semantica
                         stack.Push(n2 - n1);
                         asm.WriteLine("SUB AX, BX");
                         asm.WriteLine("PUSH AX");
+                        break;
+                    case "*":
+                        stack.Push(n2 * n1);
+                        asm.WriteLine("MUL AX, BX");
+                        asm.WriteLine("PUSH AX");
+                        break;
+                    case "/":
+                        stack.Push(n2 / n1);
+                        asm.WriteLine("DIV AX, BX");
+                        asm.WriteLine("PUSH AX");
+                        break;
+                    case "%":
+                        stack.Push(n2 % n1);
+                        asm.WriteLine("DIV AX, BX");
+                        asm.WriteLine("PUSH DX");
                         break;
                 }
             }
@@ -964,7 +1003,26 @@ namespace semantica
                 {
                     dominante = casteo;
                     float valor = stack.Pop();
-                    asm.WriteLine("POP AX");
+                    //Considerar casteo para asm
+                    switch (casteo)
+                    {
+                        case Variable.TipoDato.Char:
+                            asm.WriteLine("POP AX");
+                            asm.WriteLine("MOV AL, AH");
+                            asm.WriteLine("PUSH AX");
+                            break;
+                        case Variable.TipoDato.Int:
+                            asm.WriteLine("POP AX");
+                            asm.WriteLine("MOV AH, 0");
+                            asm.WriteLine("PUSH AX");asm.WriteLine("MOD AX, BX");
+                        asm.WriteLine("PUSH AX");
+                            break;
+                        case Variable.TipoDato.Float:
+                            asm.WriteLine("POP AX");
+                            asm.WriteLine("MOV AH, 0");
+                            asm.WriteLine("PUSH AX");
+                            break;
+                    }
                     //Console.WriteLine("Casteo: " + valor + " a " + casteo);
                     stack.Push(convert(valor, casteo.ToString()));
                     //Requerimiento -> 2;

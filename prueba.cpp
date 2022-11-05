@@ -11,7 +11,12 @@ char i ;int j;int k;int l;
 void main(){
     //For imprime los numeros del 1 al 10
     
-    for (i = 1; i <= 10; i++){
-        printf(i);
+    if (2 == 2)
+    {
+        x = 1;
+    }else
+    {
+        x = 0;
     }
+    
 }

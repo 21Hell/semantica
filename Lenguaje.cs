@@ -23,7 +23,7 @@ using System.Collections.Generic;
 //                (X)b) considerar el residuo de la división en ensamblador, el residuo de la division queda en dx 
 //                (X)c) Programar el print y scan en ensamblador
 //Requerimiento 4.- Agregar:
-//                  a) Programar else en assembler
+//                (X)a) Programar else en assembler
 //                  b) Programar for en assembler
 //Requerimiento 5.- Agregar:
 //                  a) Programar while en assembler
@@ -608,7 +608,7 @@ namespace semantica
                     log.WriteLine();
                     setPosicion(posicion);
                     NextToken();
-                    log.WriteLine("Repetir ciclo for");");
+                    log.WriteLine("Repetir ciclo for");
                 }
             } while (validarFor);
             asm.WriteLine(etiquetaFinFor + ":");
@@ -623,9 +623,7 @@ namespace semantica
         {
             string variable = getContenido();
             if (existeVariable(getContenido()))
-            {
-                match(Tipos.Identificador);
-                if (getContenido() == "++")
+            {Fin1== "++")
                 {
                     match("++");
                     if (evaluacion)
@@ -736,6 +734,7 @@ namespace semantica
         private void If(bool evaluacion)
         {
             string etiquetaIf = "if" + ++cIf;
+            string etiquetaElse = "else" + cIf;
             match("if");
             match("(");
             //Requerimiento 4
@@ -753,10 +752,11 @@ namespace semantica
             {
                 Instruccion(validarIf);
             }
+            asm.WriteLine("JMP Fin" + cIf);
             if (getContenido() == "else")
             {
                 match("else");
-                //Requerimiento 4
+                asm.WriteLine(etiquetaElse + ":");
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(!validarIf);
@@ -765,8 +765,11 @@ namespace semantica
                 {
                     Instruccion(!validarIf);
                 }
+                asm.WriteLine("JMP Fin" + cIf);
             }
             asm.WriteLine(etiquetaIf + ":");
+            asm.WriteLine("JMP " + etiquetaElse);
+            asm.WriteLine("Fin" + cIf + ":");
         }
 
         //Printf -> printf(cadena);
@@ -782,7 +785,7 @@ namespace semantica
                     string cleaned = limpiarPrints(str);
                     Console.Write(cleaned);
                     //Printea usando PRINT_STR
-                    asm.WriteLine("PRINT_STR " + "\"" + cleaned + "\"");
+                    asm.WriteLine("PRINTN " + "\"" + cleaned + "\"");
                 }
                 match(Tipos.Cadena);
             }

@@ -623,7 +623,8 @@ namespace semantica
         {
             string variable = getContenido();
             if (existeVariable(getContenido()))
-            {Fin1== "++")
+            {
+                if(getContenido() == "++")
                 {
                     match("++");
                     if (evaluacion)

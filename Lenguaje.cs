@@ -160,7 +160,6 @@ namespace semantica
             asm.WriteLine(";Variables");
             foreach (Variable v in variables)
             {
-                asm.WriteLine("\t" + v.getNombre() + " DW ?");
                 switch (v.getTipo())
                 {
                     case Variable.TipoDato.Char:
@@ -181,7 +180,7 @@ namespace semantica
         //Programa  -> Librerias? Variables? Main
         public void Programa()
         {
-            asm.WriteLine("#make_COM");
+            asm.WriteLine("#make_COM#");
             asm.WriteLine("include 'emu8086.inc'");
             asm.WriteLine("ORG 1000h");
             Libreria();

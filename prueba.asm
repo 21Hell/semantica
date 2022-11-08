@@ -1,55 +1,54 @@
 #make_COM
 include 'emu8086.inc'
 ORG 1000h
-;Variables
-	area DW ?
-	area DD 0
-	radio DW ?
-	radio DD 0
-	pi DW ?
-	pi DD 0
-	resultado DW ?
-	resultado DD 0
-	a DW ?
-	a DW 0
-	d DW ?
-	d DW 0
-	altura DW ?
-	altura DW 0
-	x DW ?
-	x DD 0
-	y DW ?
-	y DW 0
-	i DW ?
-	i DB 0
-	j DW ?
-	j DW 0
-	k DW ?
-	k DW 0
-	l DW ?
-	l DW 0
-MOV AX,2
+MOV AX,0
 PUSH AX
-MOV AX,2
+POP AX
+MOV i, AX
+inicioFor1:
+MOV AX,i
+PUSH AX
+MOV AX,3
 PUSH AX
 POP AX
 POP BX
 CMP AX, BX
-JNE if1
-MOV AX,1
+JGE finFor1
+MOV AX,i
 PUSH AX
 POP AX
-MOV x, AX
-JMP Fin1
-else1:
-MOV AX,0
-PUSH AX
-POP AX
-MOV x, AX
-JMP Fin1
-if1:
-JMP else1
-Fin1:
+CALL PRINT_NUM
+INC i
+JMP inicioFor1
+finFor1:
+
+;Variables
+	area DW ?
+	area DD ?
+	radio DW ?
+	radio DD ?
+	pi DW ?
+	pi DD ?
+	resultado DW ?
+	resultado DD ?
+	a DW ?
+	a DW ?
+	d DW ?
+	d DW ?
+	altura DW ?
+	altura DW ?
+	x DW ?
+	x DD ?
+	y DW ?
+	y DW ?
+	i DW ?
+	i DB ?
+	j DW ?
+	j DW ?
+	k DW ?
+	k DW ?
+	l DW ?
+	l DW ?
 RET
 DEFINE_SCAN_NUM
 DEFINE_PRINT_NUM

@@ -1,10 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vhVD+ZXstnCLeo58k9hQ+tnrH11lz6Frrn2vihq1oHi3QLJSXD+6Llx32+Za/wwOG6X4kI3eSH1rv39v1OTWtA==",
+  "dgSpecHash": "8s9oX95Swe4cQ5xUuIh8S7GMQ/ySNXT90y4kOUqyI+t2Hg3IKy/cOpQVLUftU7NIvCqKuN82O1h2IoS7MrOONw==",
   "success": true,
   "projectFilePath": "/home/cwolf/Documents/semantica/Semantica.csproj",
-  "expectedPackageFiles": [
-    "/root/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.10/microsoft.aspnetcore.app.ref.6.0.10.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

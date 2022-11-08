@@ -1,25 +1,135 @@
 Archivo: prueba.cpp
-11/7/2022 7:39:10 PM
+11/7/2022 9:52:55 PM
 
-i = 0 = 0
-i 3 i 
+altura = 10 = 10
+altura 2 
+i = altura = 10
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 
 Repetir ciclo for
-i 3 i 
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 
 Repetir ciclo for
-i 3 i 
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 
 Repetir ciclo for
-i 3 i 
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 
+Repetir ciclo for
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 
+Repetir ciclo for
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 
+Repetir ciclo for
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 
+Repetir ciclo for
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 
+Repetir ciclo for
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 
+Repetir ciclo for
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 j altura i - j 2 %  0 
+j = 1 
+Repetir ciclo for
+i 0 1 
+j = 0 = 0
+j altura i - j 2 %  0 
+j = 1 
+k = 0 = 0
+
+k = 2 k altura 2 *  
+k = 2 k altura 2 *  
+k = 2 k altura 2 *  
+k = 2 k altura 2 *  
+k = 2 k altura 2 *  
+k = 2 k altura 2 *  
+k = 2 k altura 2 *  
+k = 2 k altura 2 *  
+k = 2 k altura 2 *  
+k = 2 k altura 2 *  1 1 2 2 
+a = 258 = 258
+a 
+y = a = 2
+y 
 Variables: 
 area Float 0
 radio Float 0
 pi Float 0
 resultado Float 0
-a Int 0
+a Int 258
 d Int 0
-altura Int 0
+altura Int 10
+cinco Int 0
 x Float 0
-y Int 0
-i Char 3
-j Int 0
-k Int 0
-l Int 0
+y Char 2
+i Int 0
+j Int 11
+k Int 20

@@ -39,6 +39,10 @@ namespace semantica
         Variable.TipoDato dominante;
         int cIf;
         int Cfor;
+        int Cwhile;
+        int Cdo;
+
+        string globalIncremento = "";
         public Lenguaje()
         {
             cIf = Cfor = 0;
@@ -163,13 +167,13 @@ namespace semantica
                 switch (v.getTipo())
                 {
                     case Variable.TipoDato.Char:
-                        asm.WriteLine("\t" + v.getNombre() + " DB ?");
+                        asm.WriteLine("\t" + v.getNombre() + " DW ?");
                         break;
                     case Variable.TipoDato.Int:
                         asm.WriteLine("\t" + v.getNombre() + " DW ?");
                         break;
                     case Variable.TipoDato.Float:
-                        asm.WriteLine("\t" + v.getNombre() + " DD ?");
+                        asm.WriteLine("\t" + v.getNombre() + " DW ?");
                         break;
                 }
             }
@@ -181,8 +185,8 @@ namespace semantica
         public void Programa()
         {
             asm.WriteLine("#make_COM#");
-            asm.WriteLine("include 'emu8086.inc'");
-            asm.WriteLine("ORG 1000h");
+            asm.WriteLine("include emu8086.inc");
+            asm.WriteLine("ORG 100h");
             Libreria();
             Variables();
             Main();
@@ -192,7 +196,7 @@ namespace semantica
             asm.WriteLine("RET");
             asm.WriteLine("DEFINE_SCAN_NUM");
             asm.WriteLine("DEFINE_PRINT_NUM");
-            asm.WriteLine("DEFINE_PRINT_STR");
+            asm.WriteLine("DEFINE_PRINT_NUM_UNS");
             asm.WriteLine("END");
 
         }
@@ -258,6 +262,7 @@ namespace semantica
                 Lista_identificadores(tipo);
             }
         }
+        
         //Main      -> void main() Bloque de instrucciones
         private void Main()
         {
@@ -380,6 +385,10 @@ namespace semantica
                         if (dominante <= getTipo(NombreVar))
                         {
                             modVariable(NombreVar, resultado);
+                            if(impresion)
+                            {
+                                asm.WriteLine(globalIncremento);
+                            }
                         }
                         else
                         {
@@ -397,6 +406,10 @@ namespace semantica
                         if (dominante <= getTipo(NombreVar))
                         {
                             modVariable(NombreVar, resultado);
+                            if (impresion)
+                            {
+                                asm.WriteLine(globalIncremento);
+                            }
                         }
                         else
                         {
@@ -452,32 +465,53 @@ namespace semantica
                 {
                     case "++":
                         match("++");
+                        globalIncremento = "INC " + Variable;
                         resultado++;
                         break;
                     case "--":
                         match("--");
+                        globalIncremento = "DEC " + Variable;
                         resultado--;
                         break;
                     case "+=":
                         match("+=");
                         Expresion(impresion);
+                        globalIncremento = "POP AX";
+                        globalIncremento += "ADD " + Variable + ", AX";
+                        globalIncremento += "MOV " + Variable + ", AX";
                         resultado += stack.Pop();
                         break;
                     case "-=":
                         match("-=");
+                        Expresion(impresion);
+                        globalIncremento = "POP AX";
+                        globalIncremento += "SUB " + Variable + ", AX";
+                        globalIncremento += "MOV " + Variable + ", AX";
+                        resultado -= stack.Pop();
                         break;
                     case "*=":
                         match("*=");
+                        globalIncremento = "POP AX";
+                        globalIncremento += "MUL " + Variable;
+                        globalIncremento += "MOV " + Variable + ", AX";
                         Expresion(impresion);
                         resultado *= stack.Pop();
                         break;
                     case "/=":
                         match("/=");
+                        globalIncremento = "POP AX";
+                        globalIncremento += "DIV " + Variable;
+                        globalIncremento += "MOV " + Variable + ", AX";
+
                         Expresion(impresion);
                         resultado /= stack.Pop();
                         break;
                     case "%=":
                         match("%=");
+                        globalIncremento = "POP AX";
+                        globalIncremento += "DIV " + Variable;
+                        globalIncremento += "MOV " + Variable + ", DX";
+
                         Expresion(impresion);
                         resultado %= stack.Pop();
                         break;
@@ -497,9 +531,11 @@ namespace semantica
             long pos = posicion;
             int lin = linea;
             string variable = getContenido();
+            string etiquetaInicioWhile = "WHILE" + Cwhile + ":";
+            string etiquetaFinWhile = "FINWHILE" + Cwhile + ":";
             do
             {
-                validarWhile = Condicion("", impresion);
+                validarWhile = Condicion(etiquetaInicioWhile, impresion);
                 if (!evaluacion)
                 {
                     validarWhile = false;
@@ -521,8 +557,13 @@ namespace semantica
                     linea = lin;
                     setPosicion(posicion);
                     NextToken();
-
                 }
+                if (impresion)
+                {
+                    asm.WriteLine("JMP " + etiquetaInicioWhile);
+                    asm.WriteLine(etiquetaFinWhile);
+                }
+                impresion = false;
             } while (validarWhile);
 
         }
@@ -534,6 +575,12 @@ namespace semantica
             int lin = linea;
             long pos = posicion;
             bool validarDo;
+            string etiquetaInicioDo = "DO" + Cdo + ":";
+            string etiquetaFinDo = "FINDO" + Cdo + ":";
+            if (impresion)
+            {
+                asm.WriteLine(etiquetaInicioDo);
+            }
             do
             {
                 if (getContenido() == "{")
@@ -547,7 +594,7 @@ namespace semantica
                 match("while");
                 match("(");
                 string variable = getContenido();
-                validarDo = Condicion("", impresion);
+                validarDo = Condicion(etiquetaInicioDo, impresion);
                 if (!evaluacion)
                 {
                     validarDo = false;
@@ -562,6 +609,12 @@ namespace semantica
                     setPosicion(posicion);
                     NextToken();
                 }
+                if (impresion)
+                {
+                    asm.WriteLine("JMP " + etiquetaInicioDo);
+                    asm.WriteLine(etiquetaFinDo);
+                }
+                impresion = false;
             } while (validarDo);
         }
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Intruccion 
@@ -574,8 +627,7 @@ namespace semantica
             }
             string etiquetaInicoFor = "inicioFor" + Cfor;
             string etiquetaFinFor = "finFor" + Cfor;
-
-
+            globalIncremento = "";
             float incrementador = 0;
             match("for");
             match("(");
@@ -620,6 +672,9 @@ namespace semantica
                 if (validarFor)
                 {
                     modVariable(variable, incrementador);
+
+
+
                     posicion = pos - variable.Length;
                     linea = lin;
                     log.WriteLine();
@@ -629,7 +684,7 @@ namespace semantica
                 }
                 if (impresion)
                 {
-                    asm.WriteLine("INC " + variable);
+                    asm.WriteLine(globalIncremento);
                     asm.WriteLine("JMP " + etiquetaInicoFor);
                     asm.WriteLine(etiquetaFinFor + ":");
                 }
@@ -732,12 +787,12 @@ namespace semantica
             float e2 = stack.Pop();
             if (impresion)
             {
-                asm.WriteLine("POP AX");
+                asm.WriteLine("POP BX");
             }
             float e1 = stack.Pop();
             if (impresion)
             {
-                asm.WriteLine("POP BX");
+                asm.WriteLine("POP AX");
                 asm.WriteLine("CMP AX, BX");
             }
 
@@ -889,8 +944,11 @@ namespace semantica
                 }
                 match(")");
                 match(";");
-                asm.WriteLine("CALL SCAN_NUM");
-                asm.WriteLine("MOV " + nombreVariable + ", CX");
+                if (impresion)
+                {
+                    asm.WriteLine("CALL SCAN_NUM");
+                    asm.WriteLine("MOV " + nombreVariable + ", CX");
+                }
             }
             else
             {
@@ -916,35 +974,56 @@ namespace semantica
                 Termino(impresion);
                 log.Write(operador + " ");
                 float n1 = stack.Pop();
-                asm.WriteLine("POP AX");
+                if (impresion)
+                {
+                    asm.WriteLine("POP AX");
+                }
                 float n2 = stack.Pop();
-                asm.WriteLine("POP BX");
+                if (impresion)
+                {
+                    asm.WriteLine("POP BX");
+                }
                 switch (operador)
                 {
                     case "+":
                         stack.Push(n2 + n1);
-                        asm.WriteLine("ADD AX, BX");
-                        asm.WriteLine("PUSH AX");
+                        if (impresion)
+                        {
+                            asm.WriteLine("ADD AX, BX");
+                            asm.WriteLine("PUSH AX");
+                        }
                         break;
                     case "-":
                         stack.Push(n2 - n1);
-                        asm.WriteLine("SUB AX, BX");
-                        asm.WriteLine("PUSH AX");
+                        if (impresion)
+                        {
+                            asm.WriteLine("SUB AX, BX");
+                            asm.WriteLine("PUSH AX");
+                        }
                         break;
                     case "*":
                         stack.Push(n2 * n1);
-                        asm.WriteLine("MUL AX, BX");
-                        asm.WriteLine("PUSH AX");
+                        if (impresion)
+                        {
+                            asm.WriteLine("MUL AX, BX");
+                            asm.WriteLine("PUSH AX");
+                        }
                         break;
                     case "/":
                         stack.Push(n2 / n1);
-                        asm.WriteLine("DIV AX, BX");
-                        asm.WriteLine("PUSH AX");
+                        if (impresion)
+                        {
+                            asm.WriteLine("DIV AX, BX");
+                            asm.WriteLine("PUSH AX");
+                        }
                         break;
                     case "%":
                         stack.Push(n2 % n1);
-                        asm.WriteLine("DIV AX, BX");
-                        asm.WriteLine("PUSH DX");
+                        if (impresion)
+                        {
+                            asm.WriteLine("DIV AX, BX");
+                            asm.WriteLine("PUSH DX");
+                        }
                         break;
                 }
             }
@@ -996,10 +1075,17 @@ namespace semantica
                                 asm.WriteLine("DIV BX");
                                 asm.WriteLine("PUSH AX");
                             }
-                        }
-                        else
+                        }else
                         {
                             throw new Error("Error de syntaxis: division entre cero en linea  " + linea, log);
+                        }
+                        break;
+                    case "%":
+                        stack.Push(n2 % n1);
+                        if (impresion)
+                        {
+                            asm.WriteLine("DIV BX");
+                            asm.WriteLine("PUSH DX");
                         }
                         break;
                 }

@@ -26,6 +26,7 @@ using System.Collections.Generic;
 //               (X)a) Programar else en assembler
 //                  b) Programar for en assembler
 //Requerimiento 5.- Agregar:
+//                  PENDIETES XD
 //                  a) Programar while en assembler
 //                  b) Programar do while en assembler
 
@@ -263,7 +264,7 @@ namespace semantica
                 Lista_identificadores(tipo);
             }
         }
-        
+
         //Main      -> void main() Bloque de instrucciones
         private void Main()
         {
@@ -386,7 +387,7 @@ namespace semantica
                         if (dominante <= getTipo(NombreVar))
                         {
                             modVariable(NombreVar, resultado);
-                            if(impresion)
+                            if (impresion)
                             {
                                 asm.WriteLine(globalIncremento);
                             }
@@ -478,16 +479,16 @@ namespace semantica
                         match("+=");
                         Expresion(impresion);
                         globalIncremento = "POP AX";
-                        globalIncremento += "\n" +"ADD " + Variable + ", AX";
-                        globalIncremento += "\n" +"MOV " + Variable + ", AX";
+                        globalIncremento += "\n" + "ADD " + Variable + ", AX";
+                        globalIncremento += "\n" + "MOV " + Variable + ", AX";
                         resultado += stack.Pop();
                         break;
                     case "-=":
                         match("-=");
                         Expresion(impresion);
                         globalIncremento = "POP AX";
-                        globalIncremento += "\n"+ "SUB " + Variable + ", AX";
-                        globalIncremento += "\n"+ "MOV " + Variable + ", AX";
+                        globalIncremento += "\n" + "SUB " + Variable + ", AX";
+                        globalIncremento += "\n" + "MOV " + Variable + ", AX";
                         resultado -= stack.Pop();
                         break;
                     case "*=":
@@ -534,6 +535,9 @@ namespace semantica
             string variable = getContenido();
             string etiquetaInicioWhile = "WHILE" + Cwhile + ":";
             string etiquetaFinWhile = "FINWHILE" + Cwhile + ":";
+            if (impresion){
+                asm.WriteLine(etiquetaInicioWhile);
+            }
             do
             {
                 validarWhile = Condicion(etiquetaInicioWhile, impresion);
@@ -847,6 +851,7 @@ namespace semantica
             }
             string etiquetaIf = "if" + cIf;
             string etiquetaElse = "else" + cIf;
+            string etiquetaFinIf = "finIf" + cIf;
             match("if");
             match("(");
             //Requerimiento 4
@@ -866,12 +871,15 @@ namespace semantica
             }
             if (impresion)
             {
-                asm.WriteLine("JMP Fin" + cIf);
+                asm.WriteLine("JMP " + etiquetaFinIf);
             }
             if (getContenido() == "else")
             {
                 match("else");
-                asm.WriteLine(etiquetaElse + ":");
+                if (impresion)
+                {
+                    asm.WriteLine(etiquetaElse + ":");
+                }
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(!validarIf, impresion);
@@ -882,14 +890,14 @@ namespace semantica
                 }
                 if (impresion)
                 {
-                    asm.WriteLine("JMP Fin" + cIf);
+                    asm.WriteLine("JMP " + etiquetaFinIf);
                 }
             }
             if (impresion)
             {
                 asm.WriteLine(etiquetaIf + ":");
                 asm.WriteLine("JMP " + etiquetaElse);
-                asm.WriteLine("Fin" + cIf + ":");
+                asm.WriteLine(etiquetaFinIf + ":");
             }
         }
 
@@ -907,9 +915,17 @@ namespace semantica
                     Console.Write(cleaned);
                     if (str.Contains("\\n"))
                     {
-                        asm.WriteLine("PRINT "+ cleaned);
-                    }else{
-                        asm.WriteLine("PRINT "+ cleaned);
+                        if (impresion)
+                        {
+                            asm.WriteLine("PRINTLN " + str);
+                        }
+                    }
+                    else
+                    {
+                        if (impresion)
+                        {
+                            asm.WriteLine("PRINT " + str);
+                        }
                     }
                 }
                 match(Tipos.Cadena);
@@ -1086,12 +1102,13 @@ namespace semantica
                         {
                             //Obtener reciduo como numero 
                             stack.Push(n2 / n1);
-                            if(impresion)
+                            if (impresion)
                             {
                                 asm.WriteLine("DIV BX");
                                 asm.WriteLine("PUSH AX");
                             }
-                        }else
+                        }
+                        else
                         {
                             throw new Error("Error de syntaxis: division entre cero en linea  " + linea, log);
                         }
@@ -1189,26 +1206,29 @@ namespace semantica
                     switch (casteo)
                     {
                         case Variable.TipoDato.Char:
-                            if(impresion){
+                            if (impresion)
+                            {
                                 asm.WriteLine("POP AX");
                                 asm.WriteLine("MOV AL, AH");
                                 asm.WriteLine("PUSH AX");
                             }
                             break;
                         case Variable.TipoDato.Int:
-                            if(impresion){
+                            if (impresion)
+                            {
                                 asm.WriteLine("POP AX");
                                 asm.WriteLine("MOV AH, 0");
-                                asm.WriteLine("PUSH AX"); 
+                                asm.WriteLine("PUSH AX");
                                 asm.WriteLine("MOD AX, BX");
                                 asm.WriteLine("PUSH AX");
                             }
                             break;
                         case Variable.TipoDato.Float:
-                            if(impresion){
+                            if (impresion)
+                            {
                                 asm.WriteLine("POP AX");
                                 asm.WriteLine("MOV AH, 0");
-                                asm.WriteLine("PUSH AX"); 
+                                asm.WriteLine("PUSH AX");
                                 asm.WriteLine("MOD AX, BX");
                                 asm.WriteLine("PUSH AX");
                             }

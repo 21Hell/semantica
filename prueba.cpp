@@ -13,7 +13,7 @@ void main(){
 
     //Requerimiento 5.- Levanta una excepcion en el scanf si la captura no es un numero
     printf("Introduce la altura de la piramide: ");
-    scanf("altura", &altura);
+    altura = 10;
     //Requerimiento 6.- Ejecutar el for y for anidado
 
     if(altura >2) {

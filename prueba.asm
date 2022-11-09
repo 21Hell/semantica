@@ -1,9 +1,11 @@
 #make_COM#
 include emu8086.inc
 ORG 100h
-PRINTN "Introduce la altura de la piramide: "
-CALL SCAN_NUM
-MOV altura, CX
+PRINT "Introduce la altura de la piramide: "
+MOV AX,10
+PUSH AX
+POP AX
+MOV altura, AX
 MOV AX,altura
 PUSH AX
 MOV AX,2
@@ -31,6 +33,7 @@ MOV AX,0
 PUSH AX
 POP AX
 MOV j, AX
+WHILE0:
 MOV AX,j
 PUSH AX
 MOV AX,altura
@@ -59,13 +62,13 @@ POP BX
 POP AX
 CMP AX, BX
 JNE if2
-JMP Fin2
+JMP finIf2
 else2:
-PRINTN "-"
-JMP Fin2
+PRINT "-"
+JMP finIf2
 if2:
 JMP else2
-Fin2:
+finIf2:
 MOV AX,1
 PUSH AX
 POP AX
@@ -73,34 +76,18 @@ ADD j, AX
 MOV j, AX
 JMP WHILE0:
 FINWHILE0:
-PRINTN "
-"
+PRINTLN "\n"
 POP AX
 ADD j, AX
 MOV j, AX
 JMP inicioFor1
 finFor1:
-else2:
-else2:
-else2:
-else2:
-else2:
-else2:
-else2:
-else2:
-else2:
-else2:
-else2:
-else2:
-else2:
-else2:
-else2:
 MOV AX,0
 PUSH AX
 POP AX
 MOV k, AX
 DO0:
-PRINTN "-"
+PRINT "-"
 MOV AX,2
 PUSH AX
 POP AX
@@ -122,14 +109,13 @@ CMP AX, BX
 JGE DO0:
 JMP DO0:
 FINDO0:
-PRINTN "
-"
-JMP Fin2
+PRINTLN "\n"
+JMP finIf1
 else1:
-JMP Fin2
+JMP finIf1
 if1:
 JMP else1
-Fin2:
+finIf1:
 MOV AX,1
 PUSH AX
 MOV AX,1
@@ -146,19 +132,19 @@ POP BX
 POP AX
 CMP AX, BX
 JNE if4
-JMP Fin4
+JMP finIf4
 if4:
 JMP else4
-Fin4:
-JMP Fin4
+finIf4:
+JMP finIf3
 if3:
 JMP else3
-Fin4:
+finIf3:
 MOV AX,258
 PUSH AX
 POP AX
 MOV a, AX
-PRINTN "Valor de variable int 'a' antes del casteo: "
+PRINT "Valor de variable int 'a' antes del casteo: "
 MOV AX,a
 PUSH AX
 POP AX
@@ -170,15 +156,12 @@ MOV AL, AH
 PUSH AX
 POP AX
 MOV y, AX
-PRINTN "
-Valor de variable char 'y' despues del casteo de a: "
+PRINTLN "\nValor de variable char 'y' despues del casteo de a: "
 MOV AX,y
 PUSH AX
 POP AX
 CALL PRINT_NUM
-PRINTN "
-A continuacion se intenta asignar un int a un char sin usar casteo: 
-"
+PRINTLN "\nA continuacion se intenta asignar un int a un char sin usar casteo: \n"
 
 ;Variables
 	area DW ?

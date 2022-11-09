@@ -58,6 +58,7 @@ namespace semantica
         ~Lenguaje()
         {
             Console.WriteLine("Destructor");
+            cerrar();
         }
 
         //Requerimiento 5 
@@ -477,16 +478,16 @@ namespace semantica
                         match("+=");
                         Expresion(impresion);
                         globalIncremento = "POP AX";
-                        globalIncremento += "ADD " + Variable + ", AX";
-                        globalIncremento += "MOV " + Variable + ", AX";
+                        globalIncremento += "\n" +"ADD " + Variable + ", AX";
+                        globalIncremento += "\n" +"MOV " + Variable + ", AX";
                         resultado += stack.Pop();
                         break;
                     case "-=":
                         match("-=");
                         Expresion(impresion);
                         globalIncremento = "POP AX";
-                        globalIncremento += "SUB " + Variable + ", AX";
-                        globalIncremento += "MOV " + Variable + ", AX";
+                        globalIncremento += "\n"+ "SUB " + Variable + ", AX";
+                        globalIncremento += "\n"+ "MOV " + Variable + ", AX";
                         resultado -= stack.Pop();
                         break;
                     case "*=":
@@ -840,7 +841,11 @@ namespace semantica
         //If -> if(Condicion) bloque de instrucciones (else bloque de instrucciones)?
         private void If(bool evaluacion, bool impresion)
         {
-            string etiquetaIf = "if" + ++cIf;
+            if (impresion)
+            {
+                cIf++;
+            }
+            string etiquetaIf = "if" + cIf;
             string etiquetaElse = "else" + cIf;
             match("if");
             match("(");
@@ -859,7 +864,10 @@ namespace semantica
             {
                 Instruccion(validarIf, impresion);
             }
-            asm.WriteLine("JMP Fin" + cIf);
+            if (impresion)
+            {
+                asm.WriteLine("JMP Fin" + cIf);
+            }
             if (getContenido() == "else")
             {
                 match("else");
@@ -872,11 +880,17 @@ namespace semantica
                 {
                     Instruccion(!validarIf, impresion);
                 }
-                asm.WriteLine("JMP Fin" + cIf);
+                if (impresion)
+                {
+                    asm.WriteLine("JMP Fin" + cIf);
+                }
             }
-            asm.WriteLine(etiquetaIf + ":");
-            asm.WriteLine("JMP " + etiquetaElse);
-            asm.WriteLine("Fin" + cIf + ":");
+            if (impresion)
+            {
+                asm.WriteLine(etiquetaIf + ":");
+                asm.WriteLine("JMP " + etiquetaElse);
+                asm.WriteLine("Fin" + cIf + ":");
+            }
         }
 
         //Printf -> printf(cadena);
@@ -891,9 +905,11 @@ namespace semantica
                     string str = getContenido();
                     string cleaned = limpiarPrints(str);
                     Console.Write(cleaned);
-                    if (impresion)
+                    if (str.Contains("\\n"))
                     {
-                        asm.WriteLine("PRINTN " + "\"" + cleaned + "\"");
+                        asm.WriteLine("PRINT "+ cleaned);
+                    }else{
+                        asm.WriteLine("PRINT "+ cleaned);
                     }
                 }
                 match(Tipos.Cadena);

@@ -1,9 +1,7 @@
 Archivo: prueba.cpp
-11/9/2022 10:09:45 PM
-
-altura = 10 = 10
+11/10/2022 7:25:14 AM
 altura 2 
-i = altura = 10
+i = altura = 4
 i 0 1 
 j = 0 = 0
 j altura i - j 2 %  0 
@@ -25,75 +23,6 @@ Repetir ciclo for
 i 0 1 
 j = 0 = 0
 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 
-Repetir ciclo for
-i 0 1 
-j = 0 = 0
-j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 
-Repetir ciclo for
-i 0 1 
-j = 0 = 0
-j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 
-Repetir ciclo for
-i 0 1 
-j = 0 = 0
-j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 
-Repetir ciclo for
-i 0 1 
-j = 0 = 0
-j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 
-Repetir ciclo for
-i 0 1 
-j = 0 = 0
-j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 
-Repetir ciclo for
-i 0 1 
-j = 0 = 0
-j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
-j = 1 j altura i - j 2 %  0 
 j = 1 j altura i - j 2 %  0 
 j = 1 j altura i - j 2 %  0 
 j = 1 j altura i - j 2 %  0 
@@ -105,12 +34,6 @@ j altura i - j 2 %  0
 j = 1 
 k = 0 = 0
 
-k = 2 k altura 2 *  
-k = 2 k altura 2 *  
-k = 2 k altura 2 *  
-k = 2 k altura 2 *  
-k = 2 k altura 2 *  
-k = 2 k altura 2 *  
 k = 2 k altura 2 *  
 k = 2 k altura 2 *  
 k = 2 k altura 2 *  
@@ -126,10 +49,10 @@ pi Float 0
 resultado Float 0
 a Int 258
 d Int 0
-altura Int 10
+altura Int 4
 cinco Int 0
 x Float 0
 y Char 2
 i Int 0
-j Int 11
-k Int 20
+j Int 5
+k Int 8

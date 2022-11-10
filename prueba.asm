@@ -16,10 +16,8 @@ ORG 100h
 	 j DW 0
 	 k DW 0
 PRINT '"Introduce la altura de la piramide: "'
-MOV AX, 10
-PUSH AX
-POP AX
-MOV altura, AX
+CALL SCAN_NUM
+MOV altura, CX
 MOV AX, altura
 PUSH AX
 MOV AX, 2
@@ -90,7 +88,7 @@ FINWHILE1:
 PRINTN '"'
 PRINT '"'
 POP AX
-SUB i, 1
+SUB i, AX
 JMP inicioFor1
 finFor1:
 MOV AX, 0

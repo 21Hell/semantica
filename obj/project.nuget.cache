@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8s9oX95Swe4cQ5xUuIh8S7GMQ/ySNXT90y4kOUqyI+t2Hg3IKy/cOpQVLUftU7NIvCqKuN82O1h2IoS7MrOONw==",
+  "dgSpecHash": "YKxk/2zELadnUZSHDXFPwL/FW6+u0n5jRBFM2xfhvB07OlosGLGjsNpwZ4EBliS5x5x0mE731QjJAdqh7DPhsw==",
   "success": true,
-  "projectFilePath": "/home/cwolf/Documents/semantica/Semantica.csproj",
+  "projectFilePath": "/home/cwolf-laptop/Documents/semantica/Semantica.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

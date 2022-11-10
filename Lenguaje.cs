@@ -456,7 +456,6 @@ namespace semantica
         private float Incrementotipado(string Variable, string tipoIncremento, bool impresion)
         {
             float resultado = getValor(Variable);
-            globalIncremento = "";
             if (existeVariable(Variable))
             {
                 switch (tipoIncremento)
@@ -647,7 +646,7 @@ namespace semantica
             }
             string etiquetaInicoFor = "inicioFor" + Cfor;
             string etiquetaFinFor = "finFor" + Cfor;
-            string temIncremento = globalIncremento;
+            string temIncremento;
             float incrementador = 0;
             match("for");
             match("(");
@@ -678,6 +677,7 @@ namespace semantica
                 match(";");
                 match(Tipos.Identificador);
                 incrementador = Incrementotipado(variable, getContenido(), impresion);
+                temIncremento = globalIncremento;
                 //Requerimiento 1.d
                 match(")");
                 if (getContenido() == "{")

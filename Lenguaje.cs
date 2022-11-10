@@ -445,6 +445,21 @@ namespace semantica
                     {
                         asm.WriteLine("MOV " + NombreVar + ", AX");
                     }
+                    if (getTipo(NombreVar) == Variable.TipoDato.Char)
+                    {
+                    if (impresion)
+                    {
+                        asm.WriteLine("MOV AH, 0");
+                    }
+                    }
+                    if (impresion)
+                    {
+                        asm.WriteLine("MOV " + NombreVar + ", AX");
+                    }
+
+
+
+
                 }
             }
             else
@@ -936,6 +951,8 @@ namespace semantica
                 }
                 if(impresion)
                 {
+                    str = str.TrimStart('"');
+                    str = str.Remove(str.Length - 1);
                     if (str.Contains("\\n"))
                     {
                         string[] limpiada = str.Split("\\n");
@@ -1240,14 +1257,12 @@ namespace semantica
                         case Variable.TipoDato.Char:
                             if (impresion)
                             {
-                                asm.WriteLine("POP AX");
-                                asm.WriteLine("MOV AL, AH");
-                                asm.WriteLine("PUSH AX");
                             }
                             break;
                         case Variable.TipoDato.Int:
                             if (impresion)
                             {
+                                asm.WriteLine(";Casteo a int");
                                 asm.WriteLine("POP AX");
                                 asm.WriteLine("MOV AH, 0");
                                 asm.WriteLine("PUSH AX");
@@ -1258,6 +1273,7 @@ namespace semantica
                         case Variable.TipoDato.Float:
                             if (impresion)
                             {
+                                asm.WriteLine(";Casteo a float");
                                 asm.WriteLine("POP AX");
                                 asm.WriteLine("MOV AH, 0");
                                 asm.WriteLine("PUSH AX");

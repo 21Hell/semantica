@@ -15,7 +15,7 @@ ORG 100h
 	 i DW 0
 	 j DW 0
 	 k DW 0
-PRINT '"Introduce la altura de la piramide: "'
+PRINT 'Introduce la altura de la piramide: '
 CALL SCAN_NUM
 MOV altura, CX
 MOV AX, altura
@@ -29,6 +29,7 @@ JLE if1
 MOV AX, altura
 PUSH AX
 POP AX
+MOV i, AX
 MOV i, AX
 inicioFor1:
 MOV AX, i
@@ -44,6 +45,7 @@ PUSH AX
 MOV AX, 0
 PUSH AX
 POP AX
+MOV j, AX
 MOV j, AX
 WHILEINICO1:
 MOV AX, j
@@ -74,10 +76,10 @@ POP BX
 POP AX
 CMP AX, BX
 JNE if2
-PRINT '"*"'
+PRINT '*'
 JMP else2
 if2:
-PRINT '"-"'
+PRINT '-'
 else2:
 MOV AX, 1
 PUSH AX
@@ -85,8 +87,8 @@ POP AX
 ADD j, AX
 JMP WHILEINICO1:
 FINWHILE1:
-PRINTN '"'
-PRINT '"'
+PRINTN ''
+PRINT ''
 POP AX
 SUB i, AX
 JMP inicioFor1
@@ -95,8 +97,9 @@ MOV AX, 0
 PUSH AX
 POP AX
 MOV k, AX
+MOV k, AX
 DO1:
-PRINT '"-"'
+PRINT '-'
 MOV AX, 2
 PUSH AX
 POP AX
@@ -117,13 +120,13 @@ CMP AX, BX
 JGE FINDO1:
 JMP DO1:
 FINDO1:
-PRINTN '"'
-PRINT '"'
+PRINTN ''
+PRINT ''
 JMP else1
 if1:
-PRINTN '"'
+PRINTN ''
 PRINTN 'Error: la altura debe de ser mayor que 2'
-PRINT '"'
+PRINT ''
 else1:
 MOV AX, 1
 PUSH AX
@@ -133,7 +136,7 @@ POP BX
 POP AX
 CMP AX, BX
 JE if3
-PRINT '"Esto no se debe imprimir"'
+PRINT 'Esto no se debe imprimir'
 MOV AX, 2
 PUSH AX
 MOV AX, 2
@@ -142,7 +145,7 @@ POP BX
 POP AX
 CMP AX, BX
 JNE if4
-PRINT '"Esto tampoco"'
+PRINT 'Esto tampoco'
 JMP else4
 if4:
 else4:
@@ -153,7 +156,8 @@ MOV AX, 258
 PUSH AX
 POP AX
 MOV a, AX
-PRINT '"Valor de variable int a antes del casteo: "'
+MOV a, AX
+PRINT 'Valor de variable int a antes del casteo: '
 MOV AX, a
 PUSH AX
 POP AX
@@ -161,19 +165,18 @@ CALL PRINT_NUM
 MOV AX, a
 PUSH AX
 POP AX
-MOV AL, AH
-PUSH AX
-POP AX
 MOV y, AX
-PRINTN '"'
-PRINT 'Valor de variable char y despues del casteo de a: "'
+MOV AH, 0
+MOV y, AX
+PRINTN ''
+PRINT 'Valor de variable char y despues del casteo de a: '
 MOV AX, y
 PUSH AX
 POP AX
 CALL PRINT_NUM
-PRINTN '"'
+PRINTN ''
 PRINTN 'A continuacion se intenta asignar un int a un char sin usar casteo: '
-PRINT '"'
+PRINT ''
 
 RET
 DEFINE_SCAN_NUM

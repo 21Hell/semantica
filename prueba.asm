@@ -1,182 +1,182 @@
 #make_COM#
 include emu8086.inc
 ORG 100h
-PRINT "Introduce la altura de la piramide: "
-MOV AX,10
+;Variables: 
+	 area DW 0
+	 radio DW 0
+	 pi DW 0
+	 resultado DW 0
+	 a DW 0
+	 d DW 0
+	 altura DW 0
+	 cinco DW 0
+	 x DW 0
+	 y DW 0
+	 i DW 0
+	 j DW 0
+	 k DW 0
+PRINT '"Introduce la altura de la piramide: "'
+MOV AX, 10
 PUSH AX
 POP AX
 MOV altura, AX
-MOV AX,altura
+MOV AX, altura
 PUSH AX
-MOV AX,2
+MOV AX, 2
 PUSH AX
 POP BX
 POP AX
 CMP AX, BX
 JLE if1
-MOV AX,altura
+MOV AX, altura
 PUSH AX
 POP AX
 MOV i, AX
 inicioFor1:
-MOV AX,i
+MOV AX, i
 PUSH AX
-MOV AX,0
+MOV AX, 0
 PUSH AX
 POP BX
 POP AX
 CMP AX, BX
 JLE finFor1
-MOV AX,1
+MOV AX, 1
 PUSH AX
-MOV AX,0
+MOV AX, 0
 PUSH AX
 POP AX
 MOV j, AX
-WHILE0:
-MOV AX,j
+WHILEINICO1:
+MOV AX, j
 PUSH AX
-MOV AX,altura
+MOV AX, altura
 PUSH AX
-MOV AX,i
+MOV AX, i
 PUSH AX
-POP AX
 POP BX
+POP AX
 SUB AX, BX
 PUSH AX
 POP BX
 POP AX
 CMP AX, BX
-JGE WHILE0:
-MOV AX,j
+JGE FINWHILE1:
+MOV AX, j
 PUSH AX
-MOV AX,2
+MOV AX, 2
 PUSH AX
-POP AX
 POP BX
+POP AX
 DIV BX
 PUSH DX
-MOV AX,0
+MOV AX, 0
 PUSH AX
 POP BX
 POP AX
 CMP AX, BX
 JNE if2
-JMP finIf2
-else2:
-PRINT "-"
-JMP finIf2
-if2:
+PRINT '"*"'
 JMP else2
-finIf2:
-MOV AX,1
+if2:
+PRINT '"-"'
+else2:
+MOV AX, 1
 PUSH AX
 POP AX
 ADD j, AX
-MOV j, AX
-JMP WHILE0:
-FINWHILE0:
-PRINTLN "\n"
+JMP WHILEINICO1:
+FINWHILE1:
+PRINTN '"'
+PRINT '"'
 POP AX
-ADD j, AX
-MOV j, AX
+SUB i, 1
 JMP inicioFor1
 finFor1:
-MOV AX,0
+MOV AX, 0
 PUSH AX
 POP AX
 MOV k, AX
-DO0:
-PRINT "-"
-MOV AX,2
+DO1:
+PRINT '"-"'
+MOV AX, 2
 PUSH AX
 POP AX
 ADD k, AX
-MOV k, AX
-MOV AX,k
+MOV AX, k
 PUSH AX
-MOV AX,altura
+MOV AX, altura
 PUSH AX
-MOV AX,2
+MOV AX, 2
 PUSH AX
-POP AX
 POP BX
+POP AX
 MUL BX
 PUSH AX
 POP BX
 POP AX
 CMP AX, BX
-JGE DO0:
-JMP DO0:
-FINDO0:
-PRINTLN "\n"
-JMP finIf1
-else1:
-JMP finIf1
-if1:
+JGE FINDO1:
+JMP DO1:
+FINDO1:
+PRINTN '"'
+PRINT '"'
 JMP else1
-finIf1:
-MOV AX,1
+if1:
+PRINTN '"'
+PRINTN 'Error: la altura debe de ser mayor que 2'
+PRINT '"'
+else1:
+MOV AX, 1
 PUSH AX
-MOV AX,1
+MOV AX, 1
 PUSH AX
 POP BX
 POP AX
 CMP AX, BX
 JE if3
-MOV AX,2
+PRINT '"Esto no se debe imprimir"'
+MOV AX, 2
 PUSH AX
-MOV AX,2
+MOV AX, 2
 PUSH AX
 POP BX
 POP AX
 CMP AX, BX
 JNE if4
-JMP finIf4
-if4:
+PRINT '"Esto tampoco"'
 JMP else4
-finIf4:
-JMP finIf3
-if3:
+if4:
+else4:
 JMP else3
-finIf3:
-MOV AX,258
+if3:
+else3:
+MOV AX, 258
 PUSH AX
 POP AX
 MOV a, AX
-PRINT "Valor de variable int 'a' antes del casteo: "
-MOV AX,a
+PRINT '"Valor de variable int a antes del casteo: "'
+MOV AX, a
 PUSH AX
 POP AX
 CALL PRINT_NUM
-MOV AX,a
+MOV AX, a
 PUSH AX
 POP AX
 MOV AL, AH
 PUSH AX
 POP AX
 MOV y, AX
-PRINTLN "\nValor de variable char 'y' despues del casteo de a: "
-MOV AX,y
+PRINTN '"'
+PRINT 'Valor de variable char y despues del casteo de a: "'
+MOV AX, y
 PUSH AX
 POP AX
 CALL PRINT_NUM
-PRINTLN "\nA continuacion se intenta asignar un int a un char sin usar casteo: \n"
+PRINTN '"'
+PRINTN 'A continuacion se intenta asignar un int a un char sin usar casteo: '
+PRINT '"'
 
-;Variables
-	area DW ?
-	radio DW ?
-	pi DW ?
-	resultado DW ?
-	a DW ?
-	d DW ?
-	altura DW ?
-	cinco DW ?
-	x DW ?
-	y DW ?
-	i DW ?
-	j DW ?
-	k DW ?
 RET
 DEFINE_SCAN_NUM
 DEFINE_PRINT_NUM
